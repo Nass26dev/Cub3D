@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/07/29 14:58:13 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/07/29 17:06:22 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,25 @@ void get_player_position(char **map, int *player_x, int *player_y)
 	{
 		for (x = 0; map[y][x] != '\0'; x++)
 		{
-			if (map[y][x] == 'P') // Assuming 'P' is the player character
+			if (map[y][x] == 'N')
+			{
+				*player_x = x;
+				*player_y = y;
+				return;
+			}
+			else if (map[y][x] == 'S')
+			{
+				*player_x = x;
+				*player_y = y;
+				return;
+			}
+			else if (map[y][x] == 'E')
+			{
+				*player_x = x;
+				*player_y = y;
+				return;
+			}
+			else if (map[y][x] == 'W')
 			{
 				*player_x = x;
 				*player_y = y;
