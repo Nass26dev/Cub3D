@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/07/29 13:33:13 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/07/29 14:29:29 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <math.h>
 #include "../minilibx/mlx.h"
 
 typedef struct s_data
@@ -28,6 +29,12 @@ typedef struct s_data
 	char	*map_file;
 	int		width;
 	int		height;
+	int 	map_height; // Hauteur de la map
+	int 	map_width; // Largeur de la map
+	float		player_angle; // Angle du joueur
+	float		fov; // Vitesse du joueur
+	int		player_x; // Position du joueur en X
+	int		player_y; // Position du joueur en Y
 	char	*addr; // address of the image data
 	int 	bpp; // bits per pixel
 	int 	ll; // line length
