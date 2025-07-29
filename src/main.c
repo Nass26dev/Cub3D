@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/07/29 14:45:26 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/07/29 14:57:21 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ char **parse_file(const char *filename)
 	}
 	// check_error(fd);
 	point = get_point(fd);
+	data->map_height = point.y;
+	data->map_width = point.x;
 	close(fd);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
