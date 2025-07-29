@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/07/29 14:57:21 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/07/29 14:58:13 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char **get_map(int fd, t_point point)
 	return (map);
 }
 
-char **parse_file(const char *filename)
+char **parse_file(const char *filename, t_data *data)
 {
 	int fd;
 	t_point point;
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 	}
 	data.fov = 60.0; // Example FOV value
 	data.player_angle = 0;
-	data.map = parse_file(argv[1]);
+	data.map = parse_file(argv[1], &data);
 	get_player_position(data.map, &data.player_x, &data.player_y);
 	data.mlx_ptr = mlx_init();
 	mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
