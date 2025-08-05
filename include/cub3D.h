@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 14:48:43 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/05 15:59:30 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.1
+#define MINIMAP_SCALE 20
+
 typedef struct s_dda
 {
 	int step_x;
@@ -66,6 +68,7 @@ typedef struct s_data
 	int 	ll; // line length
 	int 	endian; // endianess
 	char	**map;
+	int view_offset;
 	int move_forward;
 	int move_backward;
 	int strafe_left;
@@ -84,4 +87,16 @@ typedef struct s_point
 ssize_t ft_strlen(const char *s);
 // get_next_line.c
 char				*get_next_line(int fd);
+//raycast.c 
+void render(t_data *data);
+// print.c
+void print_line(t_data *data, t_dda *dda, int x);
+void draw_square(t_data *data, int x, int y, int size, unsigned int color);
+void print_minimap(t_data *data);
+// map.c
+void free_map(char **map);
+char **parse_file(const char *filename, t_data *data);
+// player.c
+void get_player_position(t_data *data);
+
 #endif

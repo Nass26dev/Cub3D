@@ -6,7 +6,7 @@
 #    By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/07/29 13:24:51 by nyousfi          ###   ########.fr        #
+#    Updated: 2025/08/05 15:07:39 by nyousfi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ MLXFLAGS = -lm -Lminilibx -lmlx -lX11 -lXext
 SRCS = src/main.c \
 		src/get_next_line.c \
 		src/get_next_line_utils.c \
-		src/utils.c
+		src/utils.c \
+		src/raycast.c \
+		src/map.c \
+		src/print.c \
+		src/player.c
 
 MAKEDIR = make
 OBJDIR = make/objs
