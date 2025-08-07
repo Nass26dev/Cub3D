@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 16:04:41 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:12:06 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char **get_map(int fd, t_point point)
 	{
 		line = get_next_line(fd);
 		if (!line)
-		break;
+			break;
 		map[i] = line;
 		i++;
 	}

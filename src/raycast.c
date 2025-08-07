@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 15:05:11 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:07:27 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void dda(t_data *data, t_raycast *rc, int x)
 		dda.hit = 1;
 	}
 	if (dda.side == 0)
-	dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
+		dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
 	else
-	dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
+		dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
 	print_line(data, &dda , x);			
 }
 

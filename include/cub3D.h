@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 15:59:30 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/07 10:10:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,6 @@ typedef struct s_data
 	int 	endian; // endianess
 	char	**map;
 	int view_offset;
-	int move_forward;
-	int move_backward;
-	int strafe_left;
-	int strafe_right;
-	int rotate_left;
-	int rotate_right;
 }			t_data;
 
 typedef struct s_point
