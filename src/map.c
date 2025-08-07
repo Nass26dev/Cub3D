@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/07 10:12:06 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:32:11 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ void free_map(char **map)
 	for (i = 0; map[i]; i++)
 		free(map[i]);
 	free(map);
+}
+
+char	first_char(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] == 9 || str[i] == 32)
+		i++;
+	return (str[i]);
 }
 
 t_point get_point(int fd)
@@ -46,22 +56,37 @@ t_point get_point(int fd)
 char **get_map(int fd, t_point point)
 {
 	char **map;
+	char **textures;
 	char *line;
 	int i;
+	int j;
 	
 	map = malloc(sizeof(char *) * (point.y + 1));
+	textures = malloc(sizeof(char *) * 9);
 	if (!map)
-	return (NULL);
+		return (NULL);
 	i = 0;
+	j = 0;
 	while (i < point.y)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break;
-		map[i] = line;
-		i++;
+		if (first_char(line) != '1')
+		{
+			textures[j] = line;
+			j++;
+		}
+		else
+		{
+			map[i] = line;
+			i++;
+		}
 	}
+	textures[j] = NULL;
 	map[i] = NULL;
+	print_tab(map);
+	// print_tab(textures);
 	return (map);
 }
 

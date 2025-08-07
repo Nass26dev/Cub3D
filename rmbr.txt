@@ -1,0 +1,2 @@
+grosse modif sur la fonction get_map, pas le temps de test mais je fetch les args des textures ET la map en meme temps (tres douteux)
+construction en cours sur textures.c et parsing.c

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/07 10:10:25 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:23:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,19 @@ typedef struct s_data
 	int		height;
 	int 	map_height; // Hauteur de la map
 	int 	map_width; // Largeur de la map
-	double dir_x;
-	double dir_y;
-	double plane_x;
-	double plane_y;
-	double		player_x; // Position du joueur en X
-	double		player_y; // Position du joueur en Y
+	double 	dir_x;
+	double 	dir_y;
+	double	plane_x;
+	double	plane_y;
+	double	player_x; // Position du joueur en X
+	double	player_y; // Position du joueur en Y
 	char	*addr; // address of the image data
 	int 	bpp; // bits per pixel
 	int 	ll; // line length
 	int 	endian; // endianess
 	char	**map;
-	int view_offset;
+	int 	view_offset;
+	char	**textures;
 }			t_data;
 
 typedef struct s_point
@@ -79,6 +80,8 @@ typedef struct s_point
 
 // utils.c 
 ssize_t ft_strlen(const char *s);
+char	*ft_alloc_copy(const char *src);
+void	print_tab(char **tab);
 // get_next_line.c
 char				*get_next_line(int fd);
 //raycast.c 
@@ -89,8 +92,18 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color);
 void print_minimap(t_data *data);
 // map.c
 void free_map(char **map);
+char	first_char(char *str);
 char **parse_file(const char *filename, t_data *data);
 // player.c
 void get_player_position(t_data *data);
 
 #endif
+
+
+/*
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+NOSWEA
+*/
