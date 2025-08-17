@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/07 10:07:27 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/09 11:34:26 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ void render(t_data *data)
 	raycast(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	print_minimap(data);
+	// get_texture(data, "NO");
+	// get_texture(data, "SO");
 }

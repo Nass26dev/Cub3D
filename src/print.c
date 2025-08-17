@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 16:13:16 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/09 11:55:09 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void print_minimap(t_data *data)
     int offset_y = data->height * 5 / 100;
 
     int tile_size = MINIMAP_SCALE; // taille de chaque case en px dans la minimap
-
     for (int y = 0; y < data->map_height; y++)
     {
         for (int x = 0; x < data->map_width; x++)
@@ -72,9 +71,18 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color)
 void print_line(t_data *data, t_dda *dda, int x)
 {
 	int line_height;
-	int draw_start;
+	int draw_start; 
 	int draw_end;
-	
+    void    *img;
+    char    *adr;
+
+    img = get_texture(data, "NO");
+    if (!img)
+    {
+        printf("\n Failed to load xpm\n");
+        return ;
+    }
+    adr = mlx_get_data_addr(img, &data->bpp, &data->ll, &data->endian);
 	line_height = (int)(data->height / dda->wall_dist);
 	draw_start = -line_height / 2 + data->height / 2 + data->view_offset;
 	if (draw_start < 0)
@@ -87,7 +95,7 @@ void print_line(t_data *data, t_dda *dda, int x)
 	
 	for (int y = draw_start; y < draw_end; y++)
 	{
-		char *dst = data->addr + (y * data->ll + x * (data->bpp / 8));
+		char *dst = adr + (y * data->ll + x * (data->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }

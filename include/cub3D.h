@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/07 17:23:25 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/08 16:46:41 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <math.h>
 #include "../minilibx/mlx.h"
+#include "../Libft/libft.h"
 
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.1
@@ -79,7 +80,6 @@ typedef struct s_point
 }			t_point;
 
 // utils.c 
-ssize_t ft_strlen(const char *s);
 char	*ft_alloc_copy(const char *src);
 void	print_tab(char **tab);
 // get_next_line.c
@@ -94,8 +94,12 @@ void print_minimap(t_data *data);
 void free_map(char **map);
 char	first_char(char *str);
 char **parse_file(const char *filename, t_data *data);
+t_point get_point(int fd);
 // player.c
 void get_player_position(t_data *data);
+//textures
+void *get_texture(t_data *data, const char *texture_id);
+char **fetch_textures_file(const char *path);
 
 #endif
 

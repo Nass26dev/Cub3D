@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/07 15:57:36 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/09 10:45:13 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	key_hook(int keycode, void *param)
 
 int main(int argc, char **argv)
 {
-	t_data data;
+	t_data 	data;
 	if (argc != 2)
 	{
 		write(2, "Usage: ./cub3D <map_file>\n", 26);
@@ -125,6 +125,7 @@ int main(int argc, char **argv)
 	}
 	data.view_offset = 0;
 	data.map = parse_file(argv[1], &data);
+	data.textures = fetch_textures_file(argv[1]);
 	get_player_position(&data);
 	data.mlx_ptr = mlx_init();
 	mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
