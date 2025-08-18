@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 15:51:52 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 18:02:16 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int main(int argc, char **argv)
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);
 	get_texture(&data);
+	// print_c_f(&data);
 	render(&data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, (void *)&data);
 	mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 16:19:54 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 18:00:35 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ typedef struct s_data
 	void	*win_ptr;
 	void	*img_ptr;
 	char	*map_file;
-	int		width;
-	int		height;
+	int		width;//largeur screen
+	int		height;//hauteur screen
 	int 	map_height; // Hauteur de la map
 	int 	map_width; // Largeur de la map
 	double 	dir_x;

@@ -6,11 +6,16 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/18 15:34:11 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 18:07:24 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void    print_c_f(t_data *data)
+{
+    
+}
 
 char **fetch_textures_file(const char *path)
 {

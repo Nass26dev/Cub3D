@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 16:54:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 18:06:48 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color)
     
 // }
 
-static int remap_val(int value, int start1, int stop1, int start2, int stop2)
-{
-    int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
-    return outgoing;
-}
+// static int remap_val(int value, int start1, int stop1, int start2, int stop2)
+// {
+//     int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
+//     return outgoing;
+// }
 
 void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 {
@@ -98,14 +98,14 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 		draw_end = data->height - 1;
 
 	unsigned int color = (dda->side == 1) ? 0xFF0000 : 0xFF0000;
-
+    printf("%i %i\n", draw_start, draw_end);
 	for (int y = draw_start; y < draw_end; y++)
 	{
-        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[3].height);
+        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
         int texXpos = x / dda->side_dist_x;
         if (dda->side == 1)
-            texXpos = x / 2;
-        color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
+            texXpos = x;
+        color = ((int *)data->dbt[0].addr)[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width];
 		char *dst = adr + (y * data->ll + x * (data->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
