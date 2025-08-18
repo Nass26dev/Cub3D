@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/08 16:46:41 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:19:54 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ typedef struct s_raycast
 	int map_y;
 } t_raycast;
 
+typedef struct s_dbt//data base textures
+{
+	void	*img;
+	char	*addr;
+	int		width;//largeur
+	int		height;//hauteur
+	int		bpp;
+	int		line_len;
+	int		endian;
+}			t_dbt;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
@@ -71,6 +82,7 @@ typedef struct s_data
 	char	**map;
 	int 	view_offset;
 	char	**textures;
+	struct s_dbt	*dbt;//data_base_textures
 }			t_data;
 
 typedef struct s_point
@@ -87,7 +99,7 @@ char				*get_next_line(int fd);
 //raycast.c 
 void render(t_data *data);
 // print.c
-void print_line(t_data *data, t_dda *dda, int x);
+void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x);
 void draw_square(t_data *data, int x, int y, int size, unsigned int color);
 void print_minimap(t_data *data);
 // map.c
@@ -98,7 +110,7 @@ t_point get_point(int fd);
 // player.c
 void get_player_position(t_data *data);
 //textures
-void *get_texture(t_data *data, const char *texture_id);
+int get_texture(t_data *data);
 char **fetch_textures_file(const char *path);
 
 #endif

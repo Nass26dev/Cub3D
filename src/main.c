@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/09 10:45:13 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:51:52 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	key_hook(int keycode, void *param)
 {
 	t_data	*data = (t_data *)param;
 	int		moved = 0;
-
+	//windows --> 122 / 115 / 113 / 100
+	//linux -- >  119 / 115 / 97  / 100
 	if (keycode == 65307)
 		close_window(data);
-		else if (keycode == 122) // W
+		else if (keycode == 119) // W
 	{
 		double new_x = data->player_x + data->dir_x * MOVE_SPEED;
 		double new_y = data->player_y + data->dir_y * MOVE_SPEED;
@@ -54,7 +55,7 @@ int	key_hook(int keycode, void *param)
 			data->player_y = new_y;
 		moved = 1;
 	}
-	else if (keycode == 113) // A (Strafe gauche)
+	else if (keycode == 97) // A (Strafe gauche)
 	{
 		double new_x = data->player_x - data->plane_x * MOVE_SPEED;
 		double new_y = data->player_y - data->plane_y * MOVE_SPEED;
@@ -118,6 +119,7 @@ int	key_hook(int keycode, void *param)
 int main(int argc, char **argv)
 {
 	t_data 	data;
+
 	if (argc != 2)
 	{
 		write(2, "Usage: ./cub3D <map_file>\n", 26);
@@ -132,6 +134,7 @@ int main(int argc, char **argv)
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D");
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);
+	get_texture(&data);
 	render(&data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, (void *)&data);
 	mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);

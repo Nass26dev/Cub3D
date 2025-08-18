@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/09 11:34:26 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:10:14 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void dda(t_data *data, t_raycast *rc, int x)
 			dda.side = 1;
 		}
 		if (data->map[rc->map_y][rc->map_x] == '1')
-		dda.hit = 1;
+			dda.hit = 1;
 	}
 	if (dda.side == 0)
 		dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
 	else
 		dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
-	print_line(data, &dda , x);			
+	print_line(data, &dda , rc, x);			
 }
 
 void raycast(t_data *data)

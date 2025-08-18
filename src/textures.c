@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/09 12:02:19 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 15:34:11 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static char *fetch_texture_path(t_data *data, const char *texture_id)
         {
             while (data->textures[i][j] != '.' && data->textures[i][j])
                 j++;
-            return (ft_alloc_copy(data->textures[i] +j));
+            
+            return (ft_alloc_copy(data->textures[i] + j));
         }
         i++;
     }
@@ -58,22 +59,35 @@ static char *fetch_texture_path(t_data *data, const char *texture_id)
 }
 
 
-void *get_texture(t_data *data, const char *texture_id)
+int get_texture(t_data *data)
 {
-    char *path;
-    void *img;
-    int  height;//hauteur
-    int  width;//largeur
+    char    *path;
+    size_t  i;
 
-    path = fetch_texture_path(data, texture_id);
-    printf("\n%s_PATHS:  %s\n",texture_id, path);
-    if (!path)
-        return (NULL);
-    img = mlx_xpm_file_to_image(data->mlx_ptr, path, &width, &height);
-    if (!img)
-        return (NULL);
-    return (img);
-    
+    i = 0;
+    data->dbt = malloc(sizeof(t_dbt) * 4);
+
+    while (i < 4)
+    {
+        if (i == 0)
+            path = fetch_texture_path(data, "NO");
+        if (i == 1)
+            path = fetch_texture_path(data, "SO");
+        if (i == 2)
+            path = fetch_texture_path(data, "WE");
+        if (i == 3)
+            path = fetch_texture_path(data, "EA");
+        path[ft_strlen(path) - 1] = 0;
+        data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path, &data->dbt[i].width, &data->dbt[i].height);
+        if (!data->dbt[i].img)
+            return(printf("Failed to load xpm file\n"), 0);
+        data->dbt[i].addr = mlx_get_data_addr(data->dbt[i].img, &data->dbt->bpp, &data->dbt->line_len, &data->dbt->endian);
+        if (!data->dbt[i].addr)
+            return(printf("Failed to fletch data addr\n"), 0);
+        i++;
+    }
+    // printf("NO----|%s|\n", path);
+    return (1);
 }
 
 

@@ -3,3 +3,5 @@ construction en cours sur textures.c et parsing.c
 
 void render(t_data *data)
 -->	// get_texture(data, "NO");
+
+./textures/north_wall.xpm

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/09 11:55:09 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/18 16:54:34 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,27 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color)
     }
 }
 
-void print_line(t_data *data, t_dda *dda, int x)
+
+// void    print_textures(t_data *data, t_dda, t_XpmData dbt)
+// {
+    
+// }
+
+static int remap_val(int value, int start1, int stop1, int start2, int stop2)
+{
+    int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
+    return outgoing;
+}
+
+void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 {
 	int line_height;
-	int draw_start; 
+	int draw_start;
 	int draw_end;
-    void    *img;
     char    *adr;
 
-    img = get_texture(data, "NO");
-    if (!img)
-    {
-        printf("\n Failed to load xpm\n");
-        return ;
-    }
-    adr = mlx_get_data_addr(img, &data->bpp, &data->ll, &data->endian);
+    (void)rc;
+    adr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
 	line_height = (int)(data->height / dda->wall_dist);
 	draw_start = -line_height / 2 + data->height / 2 + data->view_offset;
 	if (draw_start < 0)
@@ -90,12 +96,19 @@ void print_line(t_data *data, t_dda *dda, int x)
 	draw_end = line_height / 2 + data->height / 2 + data->view_offset;
 	if (draw_end >= data->height)
 		draw_end = data->height - 1;
-	
-	unsigned int color = (dda->side == 1) ? 0x00FF00 : 0xFF0000;
-	
+
+	unsigned int color = (dda->side == 1) ? 0xFF0000 : 0xFF0000;
+
 	for (int y = draw_start; y < draw_end; y++)
 	{
+        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[3].height);
+        int texXpos = x / dda->side_dist_x;
+        if (dda->side == 1)
+            texXpos = x / 2;
+        color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
 		char *dst = adr + (y * data->ll + x * (data->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
 }
+
+//
