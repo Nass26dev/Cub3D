@@ -6,15 +6,82 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/18 18:07:24 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 11:41:53 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+int	fetch_color(t_data *data, const char c)
+{
+	size_t	i;
+	size_t	start;
+	int		r;
+	int		g;
+	int		b;
+
+	i = 0;
+	start = 0;
+	while (data->textures[i][start] != c)
+		i++;	
+	while (data->textures[i][start] < '0' || data->textures[i][start] > '9')
+		start++;
+	r = ft_atoi(data->textures[i] + start);
+	while (data->textures[i][start] != ',')
+		start++;
+	start++;
+	g = ft_atoi(data->textures[i] + start);
+	while (data->textures[i][start] != ',')
+		start++;
+	b = ft_atoi(data->textures[i] + start + 1); // int color = (r << 16) | (g << 8) | b;
+	return ((r << 16) | (g << 8) | b); 
+}
+
 void    print_c_f(t_data *data)
 {
-    
+    char	*pix;
+	int		x;
+	int		y;
+	unsigned int	c_color;
+	unsigned int	f_color;
+	unsigned int	color_check;
+
+	c_color = fetch_color(data, 'C');
+	f_color = fetch_color(data, 'F');
+	color_check = 0x000000;
+	x = 0;
+	y = 0;
+
+	while (x < 1920)
+	{
+		while ( color_check == 0x000000 && y < 1080)
+		{
+			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
+			color_check = *(unsigned int *)pix;
+			if (color_check == 0x000000)
+				*(unsigned int *)pix = c_color;
+			y++;
+		}
+		color_check = 0x000000;
+		x++;
+		y = 0;
+	}
+	x = 0;
+	y = 1080;
+	while (x < 1920)
+	{
+		while (color_check == 0x000000 && y > 0)
+		{
+			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
+			color_check = *(unsigned int *)pix;
+			if (color_check == 0x000000)
+				*(unsigned int *)pix = f_color;
+			y--;
+		}
+		color_check = 0x000000;
+		x++;
+		y = 1080;
+	}
 }
 
 char **fetch_textures_file(const char *path)
@@ -94,37 +161,3 @@ int get_texture(t_data *data)
     // printf("NO----|%s|\n", path);
     return (1);
 }
-
-
-// static char **fetch_texture_data(const char *path)
-// {
-//     t_point point;
-//     int     fd_texture;
-//     char    *line;
-//     char    **xpm_data;
-
-//     fd_texture = open(path, O_RDONLY);
-//     if (fd_texture == -1)
-//         return (printf("\n1\n"), NULL);
-//     point = get_point(fd_texture);
-//     close(fd_texture);
-//     fd_texture = open(path, O_RDONLY);
-//     if (fd_texture == -1)
-//         return (printf("\n2\n"), NULL);
-//     xpm_data = malloc(sizeof(char *) * (point.y + 1));
-//     point.y = 0;
-//     while (1)
-//     {
-//         line = get_next_line(fd_texture);
-//         if (!line)
-//             break;
-//         else
-//         {
-//             xpm_data[point.y] = line;
-//             point.y++;
-//         }
-//     }
-//     xpm_data[point.y] = NULL;
-//     close(fd_texture);
-//     return (xpm_data);
-// }

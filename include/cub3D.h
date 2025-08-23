@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 18:00:35 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:04:50 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.1
-#define MINIMAP_SCALE 20
+#define MINIMAP_SCALE 10
 
 typedef struct s_dda
 {
@@ -82,6 +82,8 @@ typedef struct s_data
 	char	**map;
 	int 	view_offset;
 	char	**textures;
+	int		c_color;
+	int		f_color;
 	struct s_dbt	*dbt;//data_base_textures
 }			t_data;
 
@@ -112,6 +114,7 @@ void get_player_position(t_data *data);
 //textures
 int get_texture(t_data *data);
 char **fetch_textures_file(const char *path);
+void    print_c_f(t_data *data);
 
 #endif
 

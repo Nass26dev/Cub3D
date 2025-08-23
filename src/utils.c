@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 13:11:11 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 11:12:07 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	print_tab(char **tab)
 		printf("%s\n", tab[i]);
 		i++;
 	}
+	printf("\nEnd printing...\n");
 }

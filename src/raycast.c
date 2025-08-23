@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 17:57:13 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:04:34 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,7 @@ void render(t_data *data)
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
 	raycast(data);
+	print_c_f(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	print_minimap(data);
-	// get_texture(data, "NO");
-	// get_texture(data, "SO");
 }

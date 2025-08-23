@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/18 18:06:48 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:15:06 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,11 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color)
     }
 }
 
-
-// void    print_textures(t_data *data, t_dda, t_XpmData dbt)
-// {
-    
-// }
-
-// static int remap_val(int value, int start1, int stop1, int start2, int stop2)
-// {
-//     int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
-//     return outgoing;
-// }
+static int remap_val(int value, int start1, int stop1, int start2, int stop2)
+{
+    int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
+    return outgoing;
+}
 
 void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 {
@@ -86,6 +80,7 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 	int draw_start;
 	int draw_end;
     char    *adr;
+	unsigned int color;
 
     (void)rc;
     adr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
@@ -97,18 +92,37 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 	if (draw_end >= data->height)
 		draw_end = data->height - 1;
 
-	unsigned int color = (dda->side == 1) ? 0xFF0000 : 0xFF0000;
-    printf("%i %i\n", draw_start, draw_end);
-	for (int y = draw_start; y < draw_end; y++)
-	{
+    for (int y = draw_start; y < draw_end; y++)
+    {
         int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
-        int texXpos = x / dda->side_dist_x;
+        int texXpos = x;
         if (dda->side == 1)
-            texXpos = x;
-        color = ((int *)data->dbt[0].addr)[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width];
-		char *dst = adr + (y * data->ll + x * (data->bpp / 8));
-		*(unsigned int *)dst = color;
-	}
+        {
+            if (rc->ray_dir_x > 0)//est
+                color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
+            else//ouest
+                color = ((int *)data->dbt[2].addr)[texXpos % data->dbt[2].width + texYpos * data->dbt[2].width];
+        }
+        if (dda->side == 0)
+        {
+            if (rc->ray_dir_x > 0)//sud
+                color = ((int *)data->dbt[1].addr)[texXpos % data->dbt[1].width + texYpos * data->dbt[1].width];
+            else//nord
+                color = ((int *)data->dbt[0].addr)[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width];
+        }
+        char *dst = adr + (y * data->ll + x * (data->bpp / 8));
+        *(unsigned int *)dst = color;
+    }
 }
 
-//
+/*
+N --> x = 0 / y = -1
+-------------------------> x = -0.5 / y = -0.5
+W --> x = -1 / y = 0
+-------------------------> x = -0.5 / y = 0.5
+S --> x = 0 / y = 1
+-------------------------> x = 0.5 / y = 0.5
+E --> x = 1 / y = 0
+-------------------------> x = 0.5 / y = -0.5
+N --> x = 0 / y = -1
+*/
