@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/23 14:39:59 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:54:54 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,22 +114,7 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
         *(unsigned int *)dst = color;
     }
 }
-/*
-	if (ray->side == 0)
-	{
-		if (ray->dir_x < 0)
-			data->texinfo.index = WEST;
-		else
-			data->texinfo.index = EAST;
-	}
-	else
-	{
-		if (ray->dir_y > 0)
-			data->texinfo.index = SOUTH;
-		else
-			data->texinfo.index = NORTH;
-	}
-*/
+
 
 /*
 N --> x = 0 / y = -1
