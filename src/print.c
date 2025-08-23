@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/23 14:15:06 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:39:59 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
     {
         int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
         int texXpos = x;
-        if (dda->side == 1)
-        {
-            if (rc->ray_dir_x > 0)//est
-                color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
-            else//ouest
-                color = ((int *)data->dbt[2].addr)[texXpos % data->dbt[2].width + texYpos * data->dbt[2].width];
-        }
         if (dda->side == 0)
+        {
+            if (rc->ray_dir_x < 0)//ouest
+                color = ((int *)data->dbt[2].addr)[texXpos % data->dbt[2].width + texYpos * data->dbt[2].width];
+            else//est
+                color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
+        }
+        else
         {
             if (rc->ray_dir_x > 0)//sud
                 color = ((int *)data->dbt[1].addr)[texXpos % data->dbt[1].width + texYpos * data->dbt[1].width];
@@ -114,6 +114,22 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
         *(unsigned int *)dst = color;
     }
 }
+/*
+	if (ray->side == 0)
+	{
+		if (ray->dir_x < 0)
+			data->texinfo.index = WEST;
+		else
+			data->texinfo.index = EAST;
+	}
+	else
+	{
+		if (ray->dir_y > 0)
+			data->texinfo.index = SOUTH;
+		else
+			data->texinfo.index = NORTH;
+	}
+*/
 
 /*
 N --> x = 0 / y = -1
