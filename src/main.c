@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/23 13:51:00 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/24 10:37:13 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	key_hook(int keycode, void *param)
 	//linux -- >  119 / 115 / 97  / 100
 	if (keycode == 65307)
 		close_window(data);
-		else if (keycode == 119) // W
+		else if (keycode == 122) // W
 	{
 		double new_x = data->player_x + data->dir_x * MOVE_SPEED;
 		double new_y = data->player_y + data->dir_y * MOVE_SPEED;
@@ -55,7 +55,7 @@ int	key_hook(int keycode, void *param)
 			data->player_y = new_y;
 		moved = 1;
 	}
-	else if (keycode == 97) // A (Strafe gauche)
+	else if (keycode == 113) // A (Strafe gauche)
 	{
 		double new_x = data->player_x - data->plane_x * MOVE_SPEED;
 		double new_y = data->player_y - data->plane_y * MOVE_SPEED;
@@ -138,7 +138,8 @@ int main(int argc, char **argv)
 	get_texture(&data);
 	render(&data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, (void *)&data);
-	mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);
+	// mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, key_hook, (void *)&data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

@@ -6,21 +6,23 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/23 14:04:50 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/23 18:24:57 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <math.h>
-#include "../minilibx/mlx.h"
-#include "../Libft/libft.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdbool.h>
+# include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include "../minilibx/mlx.h"
+# include "../Libft/libft.h"
 
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.1
