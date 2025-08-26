@@ -3,20 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/07/29 13:17:59 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/23 11:12:07 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-ssize_t ft_strlen(const char *s)
+char	*ft_alloc_copy(const char *src)
 {
-	ssize_t len = 0;
+	size_t	i;
+	char	*dst;
 
-	while (s[len] != '\0')
-		len++;
-	return len;
+	i = 0;
+	dst = malloc(sizeof(char) * ft_strlen(src) + 1);
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = 0;
+	return (dst);
+}
+
+void	print_tab(char **tab)
+{
+	size_t	i;
+
+	i = 0;
+	printf("\nTab printing...\n");
+	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
+	printf("\nEnd printing...\n");
 }

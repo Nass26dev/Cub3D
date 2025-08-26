@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 16:04:41 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/08 16:42:08 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ void free_map(char **map)
 	free(map);
 }
 
+char	first_char(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] == 9 || str[i] == 32)
+		i++;
+	return (str[i]);
+}
+
 t_point get_point(int fd)
 {
 	char *line;
@@ -35,10 +45,11 @@ t_point get_point(int fd)
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
-		if (point.y == 0)
+		if (point.y == 0 && first_char(line) == '1')
 			point.x = ft_strlen(line) - 1;
+		if (first_char(line) == '1')
+			point.y++;
 		free(line);
-		point.y++;
 	}
 	return (point);
 }
@@ -48,18 +59,23 @@ char **get_map(int fd, t_point point)
 	char **map;
 	char *line;
 	int i;
-	
+
 	map = malloc(sizeof(char *) * (point.y + 1));
 	if (!map)
-	return (NULL);
+		return (NULL);
 	i = 0;
 	while (i < point.y)
 	{
 		line = get_next_line(fd);
 		if (!line)
-		break;
-		map[i] = line;
-		i++;
+			break;
+		if (first_char(line) != '1')
+			continue ;
+		else
+		{
+			map[i] = line;
+			i++;
+		}
 	}
 	map[i] = NULL;
 	return (map);
@@ -89,5 +105,6 @@ char **parse_file(const char *filename, t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	map = get_map(fd, point);
+	close(fd);
 	return (map);
 }

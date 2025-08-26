@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 15:05:11 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/23 14:04:34 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void dda(t_data *data, t_raycast *rc, int x)
 			dda.side = 1;
 		}
 		if (data->map[rc->map_y][rc->map_x] == '1')
-		dda.hit = 1;
+			dda.hit = 1;
 	}
 	if (dda.side == 0)
-	dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
+		dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
 	else
-	dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
-	print_line(data, &dda , x);			
+		dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
+	print_line(data, &dda , rc, x);			
 }
 
 void raycast(t_data *data)
@@ -91,6 +91,7 @@ void render(t_data *data)
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
 	raycast(data);
+	print_c_f(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	print_minimap(data);
 }
