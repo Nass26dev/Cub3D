@@ -6,12 +6,13 @@
 #    By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/08/08 16:27:58 by tmarion          ###   ########.fr        #
+#    Updated: 2025/08/24 14:04:08 by tmarion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 LIBFT = Libft
+MLX = minilibx
 LIBDIR = Libft/libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -g3
@@ -53,6 +54,7 @@ all: $(NAME)
 	
 $(NAME): $(OBJS)
 	@make -j -C $(LIBFT)
+	@make -j -C $(MLX)
 	@$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIBDIR) -o $(NAME)
 	@$(eval COMPILED := 1)
 

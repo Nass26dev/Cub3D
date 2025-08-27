@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/23 11:41:53 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/27 11:27:48 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	fetch_color(t_data *data, const char c)
 	g = ft_atoi(data->textures[i] + start);
 	while (data->textures[i][start] != ',')
 		start++;
-	b = ft_atoi(data->textures[i] + start + 1); // int color = (r << 16) | (g << 8) | b;
-	return ((r << 16) | (g << 8) | b); 
+	b = ft_atoi(data->textures[i] + start + 1);
+	return ((r << 16) | (g << 8) | b);  // color = (r << 16) | (g << 8) | b; "|" operator decale les integer au rang de bit voulu pour tout stocker sur 24 bits dans l'ordre RGB
 }
 
 void    print_c_f(t_data *data)

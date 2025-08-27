@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/24 11:06:51 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/27 11:35:50 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ void draw_square(t_data *data, int x, int y, int size, unsigned int color)
 
 static int remap_val(int value, int start1, int stop1, int start2, int stop2)
 {
-    int outgoing = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
-    return outgoing;
+    int val_remap;
+
+    val_remap = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
+    return (val_remap);
 }
 
 void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
@@ -95,14 +97,14 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 
     for (int y = draw_start; y < draw_end; y++)
     {
-        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
         //
         if (dda->side == 0) // mur vertical
             wallX = rc->map_y + dda->wall_dist * rc->ray_dir_y;
         else // mur horizontal
             wallX = rc->map_x + dda->wall_dist * rc->ray_dir_x;
         wallX -= floor(wallX); // Normalisation entre 0 et 1
-        int texXpos = (int)(wallX * (double)data->dbt[0].width);
+        int texXpos = (int)(wallX * (double)data->dbt[0].width); //remap des valeur x/y
+        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
         //
         if (dda->side == 0)
         {
@@ -118,12 +120,16 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
             else // nord
                 color = ((int *)data->dbt[0].addr)[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width];
         }
+        //
         char *dst = adr + (y * data->ll + x * (data->bpp / 8));
         *(unsigned int *)dst = color;
     }
 }
 
 /*
+[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width]
+modulo pour restr dans la range 0-1 --> evite les erreurs de calcul
+
 N --> x = 0 / y = -1
 -------------------------> x = -0.5 / y = -0.5
 W --> x = -1 / y = 0
