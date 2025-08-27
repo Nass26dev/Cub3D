@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/27 11:35:50 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/27 11:49:14 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
             wallX = rc->map_y + dda->wall_dist * rc->ray_dir_y;
         else // mur horizontal
             wallX = rc->map_x + dda->wall_dist * rc->ray_dir_x;
-        wallX -= floor(wallX); // Normalisation entre 0 et 1
+        wallX = wallX - floor(wallX); // Normalisation entre 0 et 1
         int texXpos = (int)(wallX * (double)data->dbt[0].width); //remap des valeur x/y
         int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
         //
