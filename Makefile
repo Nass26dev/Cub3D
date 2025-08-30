@@ -6,7 +6,7 @@
 #    By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/08/24 14:04:08 by tmarion          ###   ########.fr        #
+#    Updated: 2025/08/28 12:21:25 by tmarion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = src/main.c \
 		src/map.c \
 		src/print.c \
 		src/textures.c \
+		src/parsing.c \
 		src/player.c
 
 MAKEDIR = make

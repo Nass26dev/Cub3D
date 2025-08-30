@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/27 11:27:48 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:38:03 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int get_texture(t_data *data)
 {
     char    *path;
     size_t  i;
+    int     fd;
 
     i = 0;
     data->dbt = malloc(sizeof(t_dbt) * 4);
@@ -150,6 +151,10 @@ int get_texture(t_data *data)
         if (i == 3)
             path = fetch_texture_path(data, "EA");
         path[ft_strlen(path) - 1] = 0;
+        fd = open(path, O_RDONLY);
+        if (fd == -1)
+            return (1);
+        close (fd);
         data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path, &data->dbt[i].width, &data->dbt[i].height);
         if (!data->dbt[i].img)
             return(printf("Failed to load xpm file\n"), 0);
@@ -158,6 +163,5 @@ int get_texture(t_data *data)
             return(printf("Failed to fletch data addr\n"), 0);
         i++;
     }
-    // printf("NO----|%s|\n", path);
-    return (1);
+    return (0);
 }

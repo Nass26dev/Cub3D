@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/24 10:37:13 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/28 12:39:49 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,22 @@ int main(int argc, char **argv)
 	data.view_offset = 0;
 	data.map = parse_file(argv[1], &data);
 	data.textures = fetch_textures_file(argv[1]);
+	if (parse_error(&data))
+	{
+		perror("Error\nWrong argument(s)");
+		return (1);
+	}
 	get_player_position(&data);
 	data.mlx_ptr = mlx_init();
 	mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D");
-	// data.win_ptr = mlx_new_window(data.mlx_ptr, 960, 540, "Cub3D");
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);
-	get_texture(&data);
+	if (get_texture(&data))
+	{
+		perror("Error\nFailed to open .xpm\n");
+		return (1);
+	}
 	render(&data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, (void *)&data);
 	// mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);
