@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/28 12:39:49 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/02 14:18:05 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,18 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	data.view_offset = 0;
-	data.map = parse_file(argv[1], &data);
 	data.textures = fetch_textures_file(argv[1]);
+	// print_tab(data.textures);
+	if (!data.textures)
+		return (1);
+	data.map = parse_file(argv[1], &data);
+	// print_tab(data.map);
+	if (!data.map)
+		return (1);
 	if (parse_error(&data))
 	{
-		perror("Error\nWrong argument(s)");
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(data.error_msg, 2);
 		return (1);
 	}
 	get_player_position(&data);

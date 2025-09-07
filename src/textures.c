@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/28 12:38:03 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/02 14:46:42 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ void    print_c_f(t_data *data)
 
 	c_color = fetch_color(data, 'C');
 	f_color = fetch_color(data, 'F');
+    if (c_color == 1024 || f_color == 1024)
+    {
+        return ;
+    }
 	color_check = 0x000000;
 	x = 0;
 	y = 0;
@@ -92,7 +96,7 @@ char **fetch_textures_file(const char *path)
     int  i;
 
     i = 0;
-    textures_file = malloc(sizeof(char *) * 9);
+    textures_file = malloc(sizeof(char *) * 100);//TODO prendre len pour malloc
     fd = open(path, O_RDONLY);
     while (1)
     {
@@ -150,6 +154,8 @@ int get_texture(t_data *data)
             path = fetch_texture_path(data, "WE");
         if (i == 3)
             path = fetch_texture_path(data, "EA");
+        if (!path)
+            return (1);
         path[ft_strlen(path) - 1] = 0;
         fd = open(path, O_RDONLY);
         if (fd == -1)

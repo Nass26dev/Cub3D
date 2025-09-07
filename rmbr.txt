@@ -7,6 +7,10 @@ void render(t_data *data)
 ./textures/north_wall.xpm
 
 faire plus de test pour le parsing RGB floor and ceiling
-faire parsing de la map
+
+parsing pete complet si map totalement decaler par des whitespace (si colonne completement vide sa pete)
+--> gestion des maps a forme diversent, pas juste check les extremitté
+
 re-check sujet
 faire plus de test pour les textures et voir si correcteur peuvent mettre leur propre texture
+

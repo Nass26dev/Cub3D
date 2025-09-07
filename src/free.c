@@ -1,43 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/02 14:06:25 by tmarion          ###   ########.fr       */
+/*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
+/*   Updated: 2025/09/02 13:19:23 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-char	*ft_alloc_copy(const char *src)
+void free_map(char **map)
 {
-	size_t	i;
-	char	*dst;
+	int i;
 
-	i = 0;
-	dst = malloc(sizeof(char) * ft_strlen(src) + 1);
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = 0;
-	return (dst);
-}
-
-void	print_tab(char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	printf("\nTab printing...\n");
-	while (tab[i])
-	{
-		printf("[%s]\n", tab[i]);
-		i++;
-	}
-	printf("\nEnd printing...\n");
+	if (!map)
+		return;
+	for (i = 0; map[i]; i++)
+		free(map[i]);
+	free(map);
 }
