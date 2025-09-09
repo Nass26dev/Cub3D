@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/02 14:18:05 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/09 14:07:34 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,9 @@ int main(int argc, char **argv)
 	}
 	get_player_position(&data);
 	data.mlx_ptr = mlx_init();
-	mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
+	// mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
+	data.height = 720;
+	data.width = 1280;
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D");
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);

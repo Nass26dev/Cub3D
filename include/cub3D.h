@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/02 14:32:56 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:45:02 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ int		is_text_paths(char **text);
 int		is_map(char **map);
 int		is_player(char **map);
 //is_valid.c
-int		is_valid_map(char **map);
+int is_valid_player(char **map);
+int is_valid_map(char **map);
 //free.c
 void	free_map(char **map);
 

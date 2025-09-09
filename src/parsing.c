@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:04:11 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/02 14:37:33 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/09 16:45:13 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,33 +88,33 @@ static int parse_map_horizontal(char **map)
     return (0);
 }
 
-static int parse_map_vertical(char **map, size_t i, size_t j)
-{
-    while (map[i] && map[i][j] && j < (ft_strlen(map[i]) - 1))
-    {
-        while (map[i][j] == 9 || map[i][j] == 32)
-            i++;
-        if (map[i][j] != '1')
-            return ( 1);
-        j++;
-        i = 0;
-    }
-    i = 0;
-    j = 0;
-    while (map[i] && map[i][j])
-    {
-        while (map[i] && map[i][j])
-            i++;
-        i--;
-        while (map[i][j] == 9 || map[i][j] == 32)
-            i--;
-        if (map[i][j] != '1')
-            return (printf("Wrong char: %c\n", map[i][j]), 1);
-        j++;
-        i = 0;
-    }
-    return (0);
-}
+// static int parse_map_vertical(char **map, size_t i, size_t j)
+// {
+//     while (map[i] && map[i][j] && j < (ft_strlen(map[i]) - 1))
+//     {
+//         while (map[i][j] == 9 || map[i][j] == 32)
+//             i++;
+//         if (map[i][j] != '1')
+//             return ( 1);
+//         j++;
+//         i = 0;
+//     }
+//     i = 0;
+//     j = 0;
+//     while (map[i] && map[i][j])
+//     {
+//         while (map[i] && map[i][j] && map[i][j] != 9 && map[i][j] != 32 && map[i][j] != 10)
+//             i++;
+//         i--;
+//         while (map[i][j] == 9 || map[i][j] == 32)
+//             i--;
+//         if (map[i][j] != '1')
+//             return (printf("Wrong line[%zu]:%s char[%zu]: %d\n", i, map[i], j, map[i][j]), 1);
+//         j++;
+//         i = 0;
+//     }
+//     return (0);
+// }
 
 int parse_error(t_data *data)//add custom msg avec char *error dans la structure
 {
@@ -131,7 +131,7 @@ int parse_error(t_data *data)//add custom msg avec char *error dans la structure
         return (1);
     }
     if (parse_map_horizontal(data->map) ||
-        parse_map_vertical(data->map, 0, 0) || is_valid_map(data->map))
+        /*parse_map_vertical(data->map, 0, 0) ||*/ is_valid_player(data->map) || is_valid_map(data->map))
     {
         data->error_msg = ft_strdup("Map is not valid");
         return (1);
