@@ -6,7 +6,7 @@
 /*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/26 09:57:26 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:51:36 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,9 @@ int main(int argc, char **argv)
 	data.textures = fetch_textures_file(argv[1]);
 	get_player_position(&data);
 	data.mlx_ptr = mlx_init();
-	mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
+	data.width = 800;
+	data.height = 600;
+	// mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D");
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);

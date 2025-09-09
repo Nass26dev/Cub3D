@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/23 11:41:53 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/09 10:53:33 by nyousfi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void    print_c_f(t_data *data)
 	x = 0;
 	y = 0;
 
-	while (x < 1920)
+	while (x < data->width)
 	{
-		while ( color_check == 0x000000 && y < 1080)
+		while ( color_check == 0x000000 && y < data->height)
 		{
 			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
 			color_check = *(unsigned int *)pix;
@@ -67,8 +67,8 @@ void    print_c_f(t_data *data)
 		y = 0;
 	}
 	x = 0;
-	y = 1080;
-	while (x < 1920)
+	y = data->height;
+	while (x < data->width)
 	{
 		while (color_check == 0x000000 && y > 0)
 		{
@@ -80,7 +80,7 @@ void    print_c_f(t_data *data)
 		}
 		color_check = 0x000000;
 		x++;
-		y = 1080;
+		y = data->height;
 	}
 }
 
