@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 14:26:29 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/10 11:12:05 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 12:46:28 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,25 @@ int is_val_char(char c)
 		c == 'E' || c == 'W' || c == 32 || c == 10)
 		return (0);
 	return (1);
+}
+
+static int is_val_parse_char(char c)
+{
+	if (c == '1' || c == '0' || c == 'N' || c == 'S' ||
+		c == 'E' || c == 'W')
+		return (0);
+	return (1);
+}
+
+static int check_arround(char **map, size_t i, size_t j)
+{
+    if (!map[i + 1][j] || !map[i - 1][j] ||
+        !map[i][j + 1] || !map[i][j - 1])
+            return (1);
+    if (is_val_parse_char(map[i + 1][j]) || is_val_parse_char(map[i - 1][j]) ||
+        is_val_parse_char(map[i][j + 1]) || is_val_parse_char(map[i][j - 1]))
+            return (1);
+    return (0);
 }
 
 int is_valid_player(char **map)
@@ -45,6 +64,7 @@ int is_valid_player(char **map)
     return (0);
 }
 
+
 int is_valid_map(char **map)
 {
     size_t  i;
@@ -57,7 +77,12 @@ int is_valid_map(char **map)
         while (map[i][j])
         {
             if (is_val_char(map[i][j]))
-                return (printf("char: %d", map[i][j]), 1);
+                return (1);
+            if (map[i][j] == '0')
+            {
+                if (check_arround(map, i, j))
+                    return (1);
+            }
             j++;
         }
         i++;
