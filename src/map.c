@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/02 14:01:22 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:22:22 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	first_char(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] == 9 || str[i] == 32)
+	while ((str[i] == 9 || str[i] == 32) && str[i])
 		i++;
 	return (str[i]);
 }
@@ -62,10 +62,10 @@ char **get_map(int fd, t_point point, int i, int count)
 	char **map;
 	char *line;
 
-	map = malloc(sizeof(char *) * (point.y + 1));
+	map = malloc(sizeof(char *) * (point.y + 2));
 	if (!map)
 		return (NULL);
-	while (i < point.y)
+	while (i < point.y || line)
 	{
 		line = get_next_line(fd);
 		count++;
@@ -75,7 +75,10 @@ char **get_map(int fd, t_point point, int i, int count)
 			first_char(line) != 'N' && first_char(line) != 'W' &&
 			first_char(line) != 'S' && first_char(line) != 'E') ||
 			count < point.text_tab_len)
-			continue ;
+			{
+				free(line);
+				continue ;
+			}
 		else
 		{
 			map[i] = line;

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/09 16:45:02 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:29:19 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_data
 // utils.c
 char	*ft_alloc_copy(const char *src);
 void 	print_tab(char **tab);
+int	get_size_tab(char **map);
 // get_next_line.c
 char	*get_next_line(int fd);
 // raycast.c
@@ -130,7 +131,9 @@ int		is_player(char **map);
 //is_valid.c
 int is_valid_player(char **map);
 int is_valid_map(char **map);
+int is_val_char(char c);
 //free.c
 void	free_map(char **map);
+int		error_parse_cleanup(t_data *data);
 
 #endif

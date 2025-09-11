@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/09 15:52:54 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:34:41 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,15 +102,19 @@ char	**fetch_textures_file(const char *path)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (!line || first_char(line) == '1')
+		printf("%s", line);
+		if (!line)
 			break ;
 		else
 		{
 			textures_file[i] = line;
 			i++;
+			if(ft_strncmp(line, "C", 1) == 0)
+				break ;
 		}
 	}
 	textures_file[i] = NULL;
+	print_tab(textures_file);
 	return (textures_file);
 }
 

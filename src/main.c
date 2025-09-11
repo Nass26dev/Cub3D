@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/09 14:07:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:04:06 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ int	close_window(void *param)
 
 	data = (t_data *)param;
 	free_map(data->map);
+	free_map(data->textures);
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(EXIT_SUCCESS);
 }
+
 
 int	key_hook(int keycode, void *param)
 {
@@ -138,6 +140,7 @@ int main(int argc, char **argv)
 	{
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(data.error_msg, 2);
+		error_parse_cleanup(&data);
 		return (1);
 	}
 	get_player_position(&data);

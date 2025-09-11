@@ -6,21 +6,19 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 14:26:29 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/09 16:55:29 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 11:12:05 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// static int get_size(char **map)
-// {
-//     size_t  i;
-
-//     i = 0;
-//     while (map[i])
-//         i++;
-//     return (i);
-// }
+int is_val_char(char c)
+{
+	if (c == '1' || c == '0' || c == 'N' || c == 'S' ||
+		c == 'E' || c == 'W' || c == 32 || c == 10)
+		return (0);
+	return (1);
+}
 
 int is_valid_player(char **map)
 {
@@ -58,9 +56,7 @@ int is_valid_map(char **map)
     {
         while (map[i][j])
         {
-            if (map[i][j] != '0' && map[i][j] != '1' && map[i][j] != 'N' &&
-                map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W' &&
-                map[i][j] != 32)
+            if (is_val_char(map[i][j]))
                 return (printf("char: %d", map[i][j]), 1);
             j++;
         }
