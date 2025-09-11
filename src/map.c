@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/10 13:22:22 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 13:19:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	last_char(char *str)
 		i--;
 	return (str[i]);
 }
-
 
 static t_point get_point(int fd, char **text, size_t i)
 {
@@ -85,6 +84,8 @@ char **get_map(int fd, t_point point, int i, int count)
 			i++;
 		}
 	}
+	if (map[i - 1][ft_strlen(map[i - 1]) - 1] == '\n')
+		map[i - 1][ft_strlen(map[i - 1]) - 1] = '\0';
 	map[i] = NULL;
 	return (map);
 }

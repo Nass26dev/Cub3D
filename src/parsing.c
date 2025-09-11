@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:04:11 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 12:42:24 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 13:00:56 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int parse_rgb(char *str)
         i++;
     i++;
     b = ft_atoi(str + i);
-    // printf("%d  %d  %d\n", r, g, b);
     if (r < 0 || g < 0 || b < 0||
         r > 255 || g > 255 || b > 255)
         return (1);
