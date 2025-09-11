@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/08/23 11:41:53 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 09:52:05 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	fetch_color(t_data *data, const char c)
 	i = 0;
 	start = 0;
 	while (data->textures[i][start] != c)
-		i++;	
+		i++;
 	while (data->textures[i][start] < '0' || data->textures[i][start] > '9')
 		start++;
 	r = ft_atoi(data->textures[i] + start);
@@ -33,28 +33,32 @@ int	fetch_color(t_data *data, const char c)
 	g = ft_atoi(data->textures[i] + start);
 	while (data->textures[i][start] != ',')
 		start++;
-	b = ft_atoi(data->textures[i] + start + 1); // int color = (r << 16) | (g << 8) | b;
-	return ((r << 16) | (g << 8) | b); 
+	b = ft_atoi(data->textures[i] + start + 1);
+	return ((r << 16) | (g << 8) | b);
+		// color = (r << 16) | (g << 8) | b; "|" operator decale les integer au rang de bit voulu pour tout stocker sur 24 bits dans l'ordre RGB
 }
 
-void    print_c_f(t_data *data)
+void	print_c_f(t_data *data)
 {
-    char	*pix;
-	int		x;
-	int		y;
+	char			*pix;
+	int				x;
+	int				y;
 	unsigned int	c_color;
 	unsigned int	f_color;
 	unsigned int	color_check;
 
 	c_color = fetch_color(data, 'C');
 	f_color = fetch_color(data, 'F');
+	if (c_color == 1024 || f_color == 1024)
+	{
+		return ;
+	}
 	color_check = 0x000000;
 	x = 0;
 	y = 0;
-
-	while (x < 1920)
+	while (x < data->width)
 	{
-		while ( color_check == 0x000000 && y < 1080)
+		while (color_check == 0x000000 && y < data->height)
 		{
 			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
 			color_check = *(unsigned int *)pix;
@@ -67,8 +71,8 @@ void    print_c_f(t_data *data)
 		y = 0;
 	}
 	x = 0;
-	y = 1080;
-	while (x < 1920)
+	y = data->height;
+	while (x < data->width)
 	{
 		while (color_check == 0x000000 && y > 0)
 		{
@@ -80,84 +84,94 @@ void    print_c_f(t_data *data)
 		}
 		color_check = 0x000000;
 		x++;
-		y = 1080;
+		y = data->height;
 	}
 }
 
-char **fetch_textures_file(const char *path)
+char	**fetch_textures_file(const char *path, int count)
 {
-    char **textures_file;
-    char *line;
-    int  fd;
-    int  i;
+	char	**textures_file;
+	char	*line;
+	int		fd;
+	int		i;
 
-    i = 0;
-    textures_file = malloc(sizeof(char *) * 9);
-    fd = open(path, O_RDONLY);
-    while (1)
-    {
-        line = get_next_line(fd);
-        if (!line || first_char(line) == '1')
-            break;
-        else
-        {
-            textures_file[i] = line;
-            i++;
-        }
-    }
-    textures_file[i] = NULL;
-    return (textures_file);
+	i = 0;
+	textures_file = malloc(sizeof(char *) * 100);
+		// TODO prendre len pour malloc
+	fd = open(path, O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		else
+		{
+			textures_file[i] = line;
+			i++;
+			if(ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+				count ++;
+			if (count == 2)
+				break ;
+		}
+	}
+	textures_file[i] = NULL;
+	return (textures_file);
 }
 
-static char *fetch_texture_path(t_data *data, const char *texture_id)
+static char	*fetch_texture_path(t_data *data, const char *texture_id)
 {
-    size_t  i;
-    size_t  j;
+	size_t	i;
+	size_t	j;
 
-    i = 0;
-    j = 0;
-    while (data->textures[i])
-    {
-        if (ft_strncmp(texture_id, data->textures[i], 2) == 0)
-        {
-            while (data->textures[i][j] != '.' && data->textures[i][j])
-                j++;
-            
-            return (ft_alloc_copy(data->textures[i] + j));
-        }
-        i++;
-    }
-    return (NULL);
+	i = 0;
+	j = 0;
+	while (data->textures[i])
+	{
+		if (ft_strncmp(texture_id, data->textures[i], 2) == 0)
+		{
+			while (data->textures[i][j] != '.' && data->textures[i][j])
+				j++;
+			return (ft_alloc_copy(data->textures[i] + j));
+		}
+		i++;
+	}
+	return (NULL);
 }
 
-
-int get_texture(t_data *data)
+int	get_texture(t_data *data)
 {
-    char    *path;
-    size_t  i;
+	char	*path;
+	size_t	i;
+	int		fd;
 
-    i = 0;
-    data->dbt = malloc(sizeof(t_dbt) * 4);
-
-    while (i < 4)
-    {
-        if (i == 0)
-            path = fetch_texture_path(data, "NO");
-        if (i == 1)
-            path = fetch_texture_path(data, "SO");
-        if (i == 2)
-            path = fetch_texture_path(data, "WE");
-        if (i == 3)
-            path = fetch_texture_path(data, "EA");
-        path[ft_strlen(path) - 1] = 0;
-        data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path, &data->dbt[i].width, &data->dbt[i].height);
-        if (!data->dbt[i].img)
-            return(printf("Failed to load xpm file\n"), 0);
-        data->dbt[i].addr = mlx_get_data_addr(data->dbt[i].img, &data->dbt->bpp, &data->dbt->line_len, &data->dbt->endian);
-        if (!data->dbt[i].addr)
-            return(printf("Failed to fletch data addr\n"), 0);
-        i++;
-    }
-    // printf("NO----|%s|\n", path);
-    return (1);
+	i = 0;
+	data->dbt = malloc(sizeof(t_dbt) * 4);
+	while (i < 4)
+	{
+		if (i == 0)
+			path = fetch_texture_path(data, "NO");
+		if (i == 1)
+			path = fetch_texture_path(data, "SO");
+		if (i == 2)
+			path = fetch_texture_path(data, "WE");
+		if (i == 3)
+			path = fetch_texture_path(data, "EA");
+		if (!path)
+			return (1);
+		path[ft_strlen(path) - 1] = 0;
+		fd = open(path, O_RDONLY);
+		if (fd == -1)
+			return (1);
+		close(fd);
+		data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path,
+				&data->dbt[i].width, &data->dbt[i].height);
+		if (!data->dbt[i].img)
+			return (printf("Failed to load xpm file\n"), 0);
+		data->dbt[i].addr = mlx_get_data_addr(data->dbt[i].img, &data->dbt->bpp,
+				&data->dbt->line_len, &data->dbt->endian);
+		if (!data->dbt[i].addr)
+			return (printf("Failed to fletch data addr\n"), 0);
+		i++;
+	}
+	return (0);
 }

@@ -6,34 +6,34 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:03:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/08 16:42:08 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 13:22:22 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void free_map(char **map)
-{
-	int i;
-
-	if (!map)
-		return;
-	for (i = 0; map[i]; i++)
-		free(map[i]);
-	free(map);
-}
 
 char	first_char(char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (str[i] == 9 || str[i] == 32)
+	while ((str[i] == 9 || str[i] == 32) && str[i])
 		i++;
 	return (str[i]);
 }
 
-t_point get_point(int fd)
+char	last_char(char *str)
+{
+	size_t	i;
+
+	i = ft_strlen(str) - 1;
+	while (str[i] == 9 || str[i] == 32 || str[i] == '\n')
+		i--;
+	return (str[i]);
+}
+
+
+static t_point get_point(int fd, char **text, size_t i)
 {
 	char *line;
 	t_point point;
@@ -51,26 +51,34 @@ t_point get_point(int fd)
 			point.y++;
 		free(line);
 	}
+	while (text[i])
+		i++;
+	point.text_tab_len = i;
 	return (point);
 }
 
-char **get_map(int fd, t_point point)
+char **get_map(int fd, t_point point, int i, int count)
 {
 	char **map;
 	char *line;
-	int i;
 
-	map = malloc(sizeof(char *) * (point.y + 1));
+	map = malloc(sizeof(char *) * (point.y + 2));
 	if (!map)
 		return (NULL);
-	i = 0;
-	while (i < point.y)
+	while (i < point.y || line)
 	{
 		line = get_next_line(fd);
+		count++;
 		if (!line)
 			break;
-		if (first_char(line) != '1')
-			continue ;
+		if ((first_char(line) != '1' && first_char(line) != '0' &&
+			first_char(line) != 'N' && first_char(line) != 'W' &&
+			first_char(line) != 'S' && first_char(line) != 'E') ||
+			count < point.text_tab_len)
+			{
+				free(line);
+				continue ;
+			}
 		else
 		{
 			map[i] = line;
@@ -94,7 +102,8 @@ char **parse_file(const char *filename, t_data *data)
 		exit(EXIT_FAILURE);
 	}
 	// check_error(fd);
-	point = get_point(fd);
+	point = get_point(fd, data->textures, 0);
+	data->point = point;
 	data->map_height = point.y;
 	data->map_width = point.x;
 	close(fd);
@@ -104,7 +113,7 @@ char **parse_file(const char *filename, t_data *data)
 		perror("Error opening file");
 		exit(EXIT_FAILURE);
 	}
-	map = get_map(fd, point);
+	map = get_map(fd, point, 0, 0);
 	close(fd);
 	return (map);
 }

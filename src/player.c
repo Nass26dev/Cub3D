@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:04:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/05 15:04:41 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/08/27 11:43:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void get_player_position(t_data *data)
 				data->dir_y = -1;
 				data->plane_x = 0.66;
 				data->plane_y = 0;
-				data->player_x = x;
-				data->player_y = y;
+				data->player_x = x + 0.5;
+				data->player_y = y + 0.5;
 				data->map[y][x] = '0';
 				return;
 			}
@@ -36,8 +36,8 @@ void get_player_position(t_data *data)
 				data->dir_y = 1;
 				data->plane_x = -0.66;
 				data->plane_y = 0;
-				data->player_x = x;
-				data->player_y = y;
+				data->player_x = x + 0.5;
+				data->player_y = y + 0.5;
 				data->map[y][x] = '0';
 				return;
 			}
@@ -47,8 +47,8 @@ void get_player_position(t_data *data)
 				data->dir_y = 0;
 				data->plane_x = 0;
 				data->plane_y = 0.66;
-				data->player_x = x;
-				data->player_y = y;
+				data->player_x = x + 0.5;
+				data->player_y = y + 0.5;
 				data->map[y][x] = '0';
 				return;
 			}
@@ -58,8 +58,8 @@ void get_player_position(t_data *data)
 				data->dir_y = 0;
 				data->plane_x = 0;
 				data->plane_y = -0.66;
-				data->player_x = x;
-				data->player_y = y;
+				data->player_x = x + 0.5;
+				data->player_y = y + 0.5;
 				data->map[y][x] = '0';
 				return;
 			}

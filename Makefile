@@ -6,12 +6,13 @@
 #    By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/08/08 16:27:58 by tmarion          ###   ########.fr        #
+#    Updated: 2025/09/02 14:37:14 by tmarion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 LIBFT = Libft
+MLX = minilibx
 LIBDIR = Libft/libft.a
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -g3
@@ -24,6 +25,10 @@ SRCS = src/main.c \
 		src/map.c \
 		src/print.c \
 		src/textures.c \
+		src/parsing.c \
+		src/is_here.c \
+		src/is_valid.c \
+		src/free.c \
 		src/player.c
 
 MAKEDIR = make
@@ -53,6 +58,7 @@ all: $(NAME)
 	
 $(NAME): $(OBJS)
 	@make -j -C $(LIBFT)
+	@make -j -C $(MLX)
 	@$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIBDIR) -o $(NAME)
 	@$(eval COMPILED := 1)
 

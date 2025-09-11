@@ -6,14 +6,14 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:26:58 by tmarion           #+#    #+#             */
-/*   Updated: 2024/11/27 06:44:09 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/02 11:10:30 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalpha(int a)
 {
 	if ((a > 64 && a < 91) || (a > 96 && a < 123))
-		return (1024);
+		return (1);
 	else
 		return (0);
 }
