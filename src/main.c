@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/09 10:51:36 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/09/11 14:14:26 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ int	close_window(void *param)
 
 	data = (t_data *)param;
 	free_map(data->map);
+	free_map(data->textures);
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 	exit(EXIT_SUCCESS);
 }
+
 
 int	key_hook(int keycode, void *param)
 {
@@ -126,17 +128,41 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	data.view_offset = 0;
+	data.textures = fetch_textures_file(argv[1], 0);
+	if (is_ceiling_color(data.textures) || is_floor_color(data.textures) ||
+        is_text_paths(data.textures))
+    {
+        data.error_msg = ft_strdup("Missing argument(s)");
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(data.error_msg, 2);
+        free(data.textures);
+		return (1);
+    }
+	if (!data.textures)
+		return (1);
 	data.map = parse_file(argv[1], &data);
-	data.textures = fetch_textures_file(argv[1]);
+	if (!data.map)
+		return (1);
+	if (parse_error(&data))
+	{
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(data.error_msg, 2);
+		error_parse_cleanup(&data);
+		return (1);
+	}
 	get_player_position(&data);
 	data.mlx_ptr = mlx_init();
-	data.width = 800;
-	data.height = 600;
 	// mlx_get_screen_size(data.mlx_ptr, &data.width, &data.height);
+	data.height = 720;
+	data.width = 1280;
 	data.win_ptr = mlx_new_window(data.mlx_ptr, data.width, data.height, "Cub3D");
 	data.img_ptr = mlx_new_image(data.mlx_ptr, data.width, data.height);
 	data.addr = mlx_get_data_addr(data.img_ptr, &data.bpp, &data.ll, &data.endian);
-	get_texture(&data);
+	if (get_texture(&data))
+	{
+		perror("Error\nFailed to open .xpm\n");
+		return (1);
+	}
 	render(&data);
 	mlx_hook(data.win_ptr, 17, 0, close_window, (void *)&data);
 	// mlx_hook(data.win_ptr, 2, 1L << 0, key_hook, (void *)&data);

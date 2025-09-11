@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:06:14 by nyousfi           #+#    #+#             */
-/*   Updated: 2024/11/29 17:22:26 by nyousfi          ###   ########.fr       */
+/*   Updated: 2025/09/11 14:00:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
+#  define BUFFER_SIZE 1
 # endif
 
 # ifndef NB_FD_MAX

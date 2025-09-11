@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/23 11:12:07 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/10 11:29:15 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,18 @@ void	print_tab(char **tab)
 	printf("\nTab printing...\n");
 	while (tab[i])
 	{
-		printf("%s\n", tab[i]);
+		printf("[%zu][%s]\n",i, tab[i]);
 		i++;
 	}
 	printf("\nEnd printing...\n");
+}
+
+int	get_size_tab(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i - 1);
 }

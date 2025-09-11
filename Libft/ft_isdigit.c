@@ -6,14 +6,14 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 11:58:48 by tmarion           #+#    #+#             */
-/*   Updated: 2024/11/27 06:44:17 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/08/30 11:09:22 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isdigit(int a)
 {
 	if (a > 47 && a < 58)
-		return (1024);
+		return (1);
 	else
 		return (0);
 }
