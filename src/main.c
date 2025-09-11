@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/10 13:04:06 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 09:52:17 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	data.view_offset = 0;
-	data.textures = fetch_textures_file(argv[1]);
+	data.textures = fetch_textures_file(argv[1], 0);
 	// print_tab(data.textures);
 	if (!data.textures)
 		return (1);

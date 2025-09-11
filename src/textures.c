@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/10 13:34:41 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 09:52:05 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	print_c_f(t_data *data)
 	}
 }
 
-char	**fetch_textures_file(const char *path)
+char	**fetch_textures_file(const char *path, int count)
 {
 	char	**textures_file;
 	char	*line;
@@ -102,19 +102,19 @@ char	**fetch_textures_file(const char *path)
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("%s", line);
 		if (!line)
 			break ;
 		else
 		{
 			textures_file[i] = line;
 			i++;
-			if(ft_strncmp(line, "C", 1) == 0)
+			if(ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+				count ++;
+			if (count == 2)
 				break ;
 		}
 	}
 	textures_file[i] = NULL;
-	print_tab(textures_file);
 	return (textures_file);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/10 13:29:19 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 09:52:57 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ char	last_char(char *str);
 void	get_player_position(t_data *data);
 // textures.c
 int		get_texture(t_data *data);
-char	**fetch_textures_file(const char *path);
 void	print_c_f(t_data *data);
+char	**fetch_textures_file(const char *path, int count);
 // parsing.c
 int		parse_error(t_data *data);
 // is_here.c
