@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/10 11:29:15 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 18:43:21 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,18 @@ int	get_size_tab(char **map)
 	while (map[i])
 		i++;
 	return (i - 1);
+}
+
+int	is_cub(char *arg)
+{
+	size_t	i;
+
+	i = 0;
+	if (!arg)
+		return (1);
+	while(arg[i] != '.')
+		i++;
+	if(ft_memcmp(arg + i, ".cub", 4) == 0 && ft_strlen(arg + i) == 4)
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 14:14:26 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 18:47:21 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ int main(int argc, char **argv)
 {
 	t_data 	data;
 
-	if (argc != 2)
+	if (argc != 2 || is_cub(argv[1]) || is_valid_fd(argv[1]))
 	{
-		write(2, "Usage: ./cub3D <map_file>\n", 26);
+		write(2, "Usage: ./cub3D <map_file.cub>\n", 26);
 		return (1);
 	}
 	data.view_offset = 0;

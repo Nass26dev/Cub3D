@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 13:17:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 18:46:43 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_data
 char	*ft_alloc_copy(const char *src);
 void 	print_tab(char **tab);
 int	get_size_tab(char **map);
+int	is_cub(char *arg);
 // get_next_line.c
 char	*get_next_line(int fd);
 // raycast.c
@@ -135,5 +136,6 @@ int is_val_char(char c);
 //free.c
 void	free_map(char **map);
 int		error_parse_cleanup(t_data *data);
+int 	is_valid_fd(char *arg);
 
 #endif
