@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/11 09:52:05 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 14:16:00 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,35 @@ void	print_c_f(t_data *data)
 	}
 }
 
+static int	get_size_text_file(const char *path, int count)
+{
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	fd = open(path, O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		else
+		{
+			i++;
+			if(ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+				count ++;
+			if (count == 2)
+				break ;
+			free(line);
+		}
+	}
+	if (line)
+		free(line);
+	close(fd);
+	return (i + 8);
+}
+
 char	**fetch_textures_file(const char *path, int count)
 {
 	char	**textures_file;
@@ -96,8 +125,7 @@ char	**fetch_textures_file(const char *path, int count)
 	int		i;
 
 	i = 0;
-	textures_file = malloc(sizeof(char *) * 100);
-		// TODO prendre len pour malloc
+	textures_file = malloc(sizeof(char *) * get_size_text_file(path, 0) + 8);
 	fd = open(path, O_RDONLY);
 	while (1)
 	{
@@ -165,6 +193,7 @@ int	get_texture(t_data *data)
 		close(fd);
 		data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path,
 				&data->dbt[i].width, &data->dbt[i].height);
+		free(path);
 		if (!data->dbt[i].img)
 			return (printf("Failed to load xpm file\n"), 0);
 		data->dbt[i].addr = mlx_get_data_addr(data->dbt[i].img, &data->dbt->bpp,

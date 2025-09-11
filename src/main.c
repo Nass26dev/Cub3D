@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 09:52:17 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/11 14:14:26 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,18 @@ int main(int argc, char **argv)
 	}
 	data.view_offset = 0;
 	data.textures = fetch_textures_file(argv[1], 0);
-	// print_tab(data.textures);
+	if (is_ceiling_color(data.textures) || is_floor_color(data.textures) ||
+        is_text_paths(data.textures))
+    {
+        data.error_msg = ft_strdup("Missing argument(s)");
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd(data.error_msg, 2);
+        free(data.textures);
+		return (1);
+    }
 	if (!data.textures)
 		return (1);
 	data.map = parse_file(argv[1], &data);
-	// print_tab(data.map);
 	if (!data.map)
 		return (1);
 	if (parse_error(&data))
