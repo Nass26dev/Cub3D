@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nyousfi <nyousfi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/11 14:16:00 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/12 15:35:06 by nass             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	fetch_color(t_data *data, const char c)
 		start++;
 	b = ft_atoi(data->textures[i] + start + 1);
 	return ((r << 16) | (g << 8) | b);
-		// color = (r << 16) | (g << 8) | b; "|" operator decale les integer au rang de bit voulu pour tout stocker sur 24 bits dans l'ordre RGB
 }
 
 void	print_c_f(t_data *data)
@@ -50,9 +49,7 @@ void	print_c_f(t_data *data)
 	c_color = fetch_color(data, 'C');
 	f_color = fetch_color(data, 'F');
 	if (c_color == 1024 || f_color == 1024)
-	{
 		return ;
-	}
 	color_check = 0x000000;
 	x = 0;
 	y = 0;
@@ -104,8 +101,8 @@ static int	get_size_text_file(const char *path, int count)
 		else
 		{
 			i++;
-			if(ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-				count ++;
+			if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+				count++;
 			if (count == 2)
 				break ;
 			free(line);
@@ -136,8 +133,8 @@ char	**fetch_textures_file(const char *path, int count)
 		{
 			textures_file[i] = line;
 			i++;
-			if(ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-				count ++;
+			if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+				count++;
 			if (count == 2)
 				break ;
 		}

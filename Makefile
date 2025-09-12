@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: nass <nass@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/09/02 14:37:14 by tmarion          ###   ########.fr        #
+#    Updated: 2025/09/12 15:16:26 by nass             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,18 @@ SRCS = src/main.c \
 		src/utils.c \
 		src/raycast.c \
 		src/map.c \
+		src/map_utils.c \
 		src/print.c \
 		src/textures.c \
 		src/parsing.c \
 		src/is_here.c \
 		src/is_valid.c \
 		src/free.c \
-		src/player.c
+		src/player.c \
+		src/launch.c \
+		src/movement_keypress.c \
+		src/view_keypress.c \
+		src/minimap.c
 
 MAKEDIR = make
 OBJDIR = make/objs

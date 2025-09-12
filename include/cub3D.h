@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 13:17:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/12 15:27:00 by nass             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@
 #define MOVE_SPEED 0.5
 #define ROT_SPEED 0.1
 #define MINIMAP_SCALE 10
+#define W_PRESS 119
+#define S_PRESS 115
+#define A_PRESS 97
+#define D_PRESS 100
+#define ESC_PRESS 65307
+#define RIGHT_ARROW_PRESS 65361
+#define LEFT_ARROW_PRESS 65363
+#define UP_ARROW_PRESS 65362
+#define DOWN_ARROW_PRESS 65364
+#define RED 0xFF0000
+#define GRAY 0x777777
+#define WHITE 0xFFFFFF
+#define WALL_DIST_CALC_SIDE_0 (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x
+#define WALL_DIST_CALC_SIDE_1 (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y
 
 typedef struct s_dda
 {
@@ -50,12 +64,12 @@ typedef struct s_raycast
 	int map_y;
 } t_raycast;
 
-typedef struct s_dbt // data base textures
+typedef struct s_dbt
 {
 	void *img;
 	char *addr;
-	int width;	// largeur
-	int height; // hauteur
+	int width;
+	int height;
 	int bpp;
 	int line_len;
 	int endian;
@@ -68,26 +82,41 @@ typedef struct s_point
 	int	text_tab_len;
 } t_point;
 
+typedef struct s_minimap
+{
+	int		offset_x;
+	int		offset_y;
+	char	tile;
+	unsigned int color;
+	int		draw_x;
+	int		draw_y;
+	int		player_draw_x;
+	int		player_draw_y;
+	int tile_size;
+	int x;
+	int y;
+}		t_minimap;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	char	*map_file;
-	int		width;		// largeur screen
-	int		height;		// hauteur screen
-	int		map_height; // Hauteur de la map
-	int		map_width;	// Largeur de la map
+	int		width;
+	int		height;
+	int		map_height;
+	int		map_width;
 	double	dir_x;
 	double	dir_y;
 	double	plane_x;
 	double	plane_y;
-	double	player_x; // Position du joueur en X
-	double	player_y; // Position du joueur en Y
-	char	*addr;		 // address of the image data
-	int		bpp;		 // bits per pixel
-	int		ll;			 // line length
-	int		endian;		 // endianess
+	double	player_x;
+	double	player_y;
+	char	*addr;
+	int		bpp;
+	int		ll;
+	int		endian;
 	char	**map;
 	int		view_offset;
 	char	**textures;
@@ -95,7 +124,7 @@ typedef struct s_data
 	int		f_color;
 	char	*error_msg;
 	struct s_point point;
-	struct s_dbt *dbt; // data_base_textures
+	struct s_dbt *dbt;
 } t_data;
 
 // utils.c
@@ -135,5 +164,21 @@ int is_val_char(char c);
 //free.c
 void	free_map(char **map);
 int		error_parse_cleanup(t_data *data);
+//launch.c
+bool check_args(t_data *data, char **argv);
+bool manage_map(t_data *data, char **argv);
+void init_mlx(t_data *data);
+//movement_keypress.c
+bool	manage_w(t_data *data);
+bool	manage_s(t_data *data);
+bool	manage_a(t_data *data);
+bool	manage_d(t_data *data);
+//view_keypress.c
+bool	manage_ra(t_data *data);
+bool	manage_la(t_data *data);
+bool	manage_da(t_data *data);
+bool	manage_ua(t_data *data);
+//map_utils.c
+bool is_ok(char *line, int count, t_point point);
 
 #endif
