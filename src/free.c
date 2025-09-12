@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/10 13:13:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:38:03 by nass             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void free_map(char **map)
+void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)
-	{
-		return;
-	}
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
