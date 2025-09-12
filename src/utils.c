@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/10 11:29:15 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/12 13:45:14 by nass             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_tab(char **tab)
 	printf("\nTab printing...\n");
 	while (tab[i])
 	{
-		printf("[%zu][%s]\n",i, tab[i]);
+		printf("[%zu][%s]\n", i, tab[i]);
 		i++;
 	}
 	printf("\nEnd printing...\n");
