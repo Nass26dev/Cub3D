@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/16 11:51:28 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/16 13:14:37 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,8 @@ int	main(int argc, char **argv)
 	data.view_offset = 0;
 	if (check_args(&data, argv) || !data.textures)
 		return (1);
-	manage_map(&data, argv);
 	init_mlx(&data);
-	if (get_texture(&data, 0))
+	if (get_texture(&data, 0, NULL) || manage_map(&data, argv))
 	{
 		perror("Error\nFailed to open .xpm\n");
 		close_window(&data);

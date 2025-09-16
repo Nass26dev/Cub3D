@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/16 12:07:43 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/16 13:18:57 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ static int	get_size_text_file(const char *path, int count)
 	return (i + 8);
 }
 
-char	**fetch_textures_file(const char *path, int count)
+char	**fetch_textures_file(const char *path, int count, int i)
 {
 	char	**textures_file;
 	char	*line;
 	int		fd;
-	int		i;
 
-	i = 0;
 	textures_file = malloc(sizeof(char *) * get_size_text_file(path, 0) + 8);
+	if (!textures_file)
+		return (NULL);
 	fd = open(path, O_RDONLY);
 	while (1)
 	{
@@ -108,12 +108,13 @@ static char	*wich_path(t_data *data, size_t i)
 	return (path);
 }
 
-int	get_texture(t_data *data, size_t i)
+int	get_texture(t_data *data, size_t i, char *path)
 {
-	char	*path;
 	int		fd;
 
 	data->dbt = malloc(sizeof(t_dbt) * 4);
+	if (!data->dbt)
+		return (1);
 	ft_memset(data->dbt, 0, sizeof(data->dbt));
 	while (i < 4)
 	{

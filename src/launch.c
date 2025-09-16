@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:52:36 by nass              #+#    #+#             */
-/*   Updated: 2025/09/12 15:28:02 by nass             ###   ########.fr       */
+/*   Updated: 2025/09/16 13:20:17 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 bool	check_args(t_data *data, char **argv)
 {
-	data->textures = fetch_textures_file(argv[1], 0);
+	data->textures = fetch_textures_file(argv[1], 0, 0);
+	if (!data->textures)
+		return (1);
 	if (is_ceiling_color(data->textures) || is_floor_color(data->textures)
 		|| is_text_paths(data->textures))
 	{

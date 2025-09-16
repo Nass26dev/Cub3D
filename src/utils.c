@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/12 13:45:14 by nass             ###   ########.fr       */
+/*   Updated: 2025/09/16 13:15:17 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_alloc_copy(const char *src)
 
 	i = 0;
 	dst = malloc(sizeof(char) * ft_strlen(src) + 1);
+	if (!dst)
+		return (NULL);
 	while (src[i])
 	{
 		dst[i] = src[i];
