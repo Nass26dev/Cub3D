@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/16 11:52:25 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/16 12:41:26 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,19 @@ typedef struct s_minimap
 	int y;
 }		t_minimap;
 
+typedef struct s_render
+{
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	char			*adr;
+	unsigned int	color;
+	double			wallX;
+	int				texYpos;
+	char			*dst;
+	int				texXpos;
+}		t_render;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;
@@ -137,7 +150,6 @@ char	*get_next_line(int fd);
 void	render(t_data *data);
 // print.c
 void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x);
-void	draw_square(t_data *data, int x, int y, int size, unsigned int color);
 void	print_minimap(t_data *data);
 // map.c
 char	first_char(char *str);
