@@ -6,13 +6,13 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/09 14:01:03 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/16 11:52:18 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void init_dda(t_data *data, t_dda *dda, t_raycast *rc)
+void	init_dda(t_data *data, t_dda *dda, t_raycast *rc)
 {
 	if (rc->ray_dir_x < 0)
 	{
@@ -37,10 +37,10 @@ void init_dda(t_data *data, t_dda *dda, t_raycast *rc)
 	dda->hit = 0;
 }
 
-void dda(t_data *data, t_raycast *rc, int x)
+void	dda(t_data *data, t_raycast *rc, int x)
 {
-	t_dda dda;
-	
+	t_dda	dda;
+
 	init_dda(data, &dda, rc);
 	while (dda.hit == 0)
 	{
@@ -60,16 +60,17 @@ void dda(t_data *data, t_raycast *rc, int x)
 			dda.hit = 1;
 	}
 	if (dda.side == 0)
-		dda.wall_dist = (rc->map_x - data->player_x + (1 - dda.step_x) / 2) / rc->ray_dir_x;
+		dda.wall_dist = WALL_DIST_CALC_SIDE_0;
 	else
-		dda.wall_dist = (rc->map_y - data->player_y + (1 - dda.step_y) / 2) / rc->ray_dir_y;
-	print_line(data, &dda , rc, x);			
+		dda.wall_dist = WALL_DIST_CALC_SIDE_1;
+	print_line(data, &dda, rc, x);
 }
 
-void raycast(t_data *data)
+void	raycast(t_data *data)
 {
-	int x;
-	t_raycast rc;
+	int			x;
+	t_raycast	rc;
+
 	x = 0;
 	while (x < data->width)
 	{
@@ -85,13 +86,14 @@ void raycast(t_data *data)
 	}
 }
 
-void render(t_data *data)
+void	render(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
-	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
+	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
+			&data->endian);
 	raycast(data);
-	print_c_f(data);
+	print_c_f(data, 0, 0);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	print_minimap(data);
 }
