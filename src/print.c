@@ -6,137 +6,84 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/08/27 11:49:14 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:25:16 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void print_minimap(t_data *data)
+static int	remap_val(int value, t_render *rnd, int start2, int stop2)
 {
-    int offset_x = data->width * 3 / 100;
-    int offset_y = data->height * 5 / 100;
+	int	val_remap;
 
-    int tile_size = MINIMAP_SCALE; // taille de chaque case en px dans la minimap
-    for (int y = 0; y < data->map_height; y++)
-    {
-        for (int x = 0; x < data->map_width; x++)
-        {
-            char tile = data->map[y][x];
-            unsigned int color;
-
-            if (tile == '1')      // mur
-                color = 0x777777; // gris
-            else
-                color = 0xFFFFFF; // sol/vide
-
-            int draw_x = offset_x + x * tile_size;
-            int draw_y = offset_y + y * tile_size;
-            draw_square(data, draw_x, draw_y, tile_size, color);
-        }
-    }
-    // Dessiner le joueur en rouge
-    int player_draw_x = offset_x + data->player_x * tile_size;
-    int player_draw_y = offset_y + data->player_y * tile_size;
-    draw_square(data, player_draw_x, player_draw_y, tile_size, 0xFF0000); // rouge
+	val_remap = (float)(value - rnd->draw_start) / (rnd->draw_end
+			- rnd->draw_start) * (stop2 - start2);
+	return (val_remap);
 }
 
-void draw_pixel(t_data *data, int x, int y, unsigned int color)
+static void	init_render(t_render *rnd, t_data *data, t_dda *dda)
 {
-    if (x >= 0 && x < data->width && y >= 0 && y < data->height)
-    {
-        char *dst = data->addr + (y * data->ll + x * (data->bpp / 8));
-        *(unsigned int *)dst = color;
-    }
+	ft_memset(rnd, 0, sizeof(rnd));
+	rnd->adr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
+			&data->endian);
+	rnd->line_height = (int)(data->height / dda->wall_dist);
+	rnd->draw_start = -rnd->line_height / 2 + data->height / 2
+		+ data->view_offset;
+	if (rnd->draw_start < 0)
+		rnd->draw_start = 0;
+	rnd->draw_end = rnd->line_height / 2 + data->height / 2
+		+ data->view_offset;
+	if (rnd->draw_end >= data->height)
+		rnd->draw_end = data->height - 1;
+	return ;
 }
 
-void draw_square(t_data *data, int x, int y, int size, unsigned int color)
+static void	draw_false_dda(t_render *rnd, t_data *data, t_raycast *rc)
 {
-    int i;
-    int j;
-
-    i = 0;
-    while (i < size)
-    {
-        j = 0;
-        while (j < size)
-        {
-            draw_pixel(data, x + j, y + i, color);
-            j++;
-        }
-        i++;
-    }
+	if (rc->ray_dir_x < 0)
+		rnd->color = ((int *)data->dbt[2].addr)[rnd->texxpos
+			% data->dbt[2].width
+			+ rnd->texypos * data->dbt[2].width];
+	else
+		rnd->color = ((int *)data->dbt[3].addr)[rnd->texxpos
+			% data->dbt[3].width
+			+ rnd->texypos * data->dbt[3].width];
 }
 
-static int remap_val(int value, int start1, int stop1, int start2, int stop2)
+static void	draw_true_dda(t_render *rnd, t_data *data, t_raycast *rc)
 {
-    int val_remap;
-
-    val_remap = (float)(value - start1) / (stop1 - start1) * (stop2 - start2);
-    return (val_remap);
+	if (rc->ray_dir_y > 0)
+		rnd->color = ((int *)data->dbt[1].addr)[rnd->texxpos
+			% data->dbt[1].width
+			+ rnd->texypos * data->dbt[1].width];
+	else
+		rnd->color = ((int *)data->dbt[0].addr)[rnd->texxpos
+			% data->dbt[0].width
+			+ rnd->texypos * data->dbt[0].width];
 }
 
-void print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
+void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 {
-    int line_height;
-    int draw_start;
-    int draw_end;
-    char *adr;
-    unsigned int color;
-    double wallX;
+	t_render	rnd;
+	int			y;
 
-    (void)rc;
-    adr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll, &data->endian);
-    line_height = (int)(data->height / dda->wall_dist);
-    draw_start = -line_height / 2 + data->height / 2 + data->view_offset;
-    if (draw_start < 0)
-        draw_start = 0;
-    draw_end = line_height / 2 + data->height / 2 + data->view_offset;
-    if (draw_end >= data->height)
-        draw_end = data->height - 1;
-
-    for (int y = draw_start; y < draw_end; y++)
-    {
-        //
-        if (dda->side == 0) // mur vertical
-            wallX = rc->map_y + dda->wall_dist * rc->ray_dir_y;
-        else // mur horizontal
-            wallX = rc->map_x + dda->wall_dist * rc->ray_dir_x;
-        wallX = wallX - floor(wallX); // Normalisation entre 0 et 1
-        int texXpos = (int)(wallX * (double)data->dbt[0].width); //remap des valeur x/y
-        int texYpos = remap_val(y, draw_start, draw_end, 0, data->dbt[0].height);
-        //
-        if (dda->side == 0)
-        {
-            if (rc->ray_dir_x < 0) // ouest
-                color = ((int *)data->dbt[2].addr)[texXpos % data->dbt[2].width + texYpos * data->dbt[2].width];
-            else // est
-                color = ((int *)data->dbt[3].addr)[texXpos % data->dbt[3].width + texYpos * data->dbt[3].width];
-        }
-        else
-        {
-            if (rc->ray_dir_y > 0) // sud
-                color = ((int *)data->dbt[1].addr)[texXpos % data->dbt[1].width + texYpos * data->dbt[1].width];
-            else // nord
-                color = ((int *)data->dbt[0].addr)[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width];
-        }
-        //
-        char *dst = adr + (y * data->ll + x * (data->bpp / 8));
-        *(unsigned int *)dst = color;
-    }
+	init_render(&rnd, data, dda);
+	y = rnd.draw_start;
+	while (y < rnd.draw_end)
+	{
+		if (dda->side == 0)
+			rnd.wallx = rc->map_y + dda->wall_dist * rc->ray_dir_y;
+		else
+			rnd.wallx = rc->map_x + dda->wall_dist * rc->ray_dir_x;
+		rnd.wallx = rnd.wallx - floor(rnd.wallx);
+		rnd.texxpos = (int)(rnd.wallx * (double)data->dbt[0].width);
+		rnd.texypos = remap_val(y, &rnd, 0, data->dbt[0].height);
+		if (dda->side == 0)
+			draw_false_dda(&rnd, data, rc);
+		else
+			draw_true_dda(&rnd, data, rc);
+		rnd.dst = rnd.adr + (y * data->ll + x * (data->bpp / 8));
+		*(unsigned int *)rnd.dst = rnd.color;
+		y++;
+	}
 }
-
-/*
-[texXpos % data->dbt[0].width + texYpos * data->dbt[0].width]
-modulo pour restr dans la range 0-1 --> evite les erreurs de calcul
-
-N --> x = 0 / y = -1
--------------------------> x = -0.5 / y = -0.5
-W --> x = -1 / y = 0
--------------------------> x = -0.5 / y = 0.5
-S --> x = 0 / y = 1
--------------------------> x = 0.5 / y = 0.5
-E --> x = 1 / y = 0
--------------------------> x = 0.5 / y = -0.5
-N --> x = 0 / y = -1
-*/

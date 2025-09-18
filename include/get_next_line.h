@@ -6,12 +6,12 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 15:06:14 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/11 14:00:25 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/18 13:17:07 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <fcntl.h>
 # include <stdlib.h>

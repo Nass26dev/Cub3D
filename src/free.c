@@ -6,21 +6,19 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/11 18:47:34 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/16 11:09:08 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void free_map(char **map)
+void	free_map(char **map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!map)
-	{
-		return;
-	}
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
@@ -37,21 +35,16 @@ int	error_parse_cleanup(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-int is_valid_fd(char *arg)
+void	free_img(t_dbt *dbt, void *mlx)
 {
-	int fd;
+	size_t	i;
 
-	if (!arg)
-		return (1);
-	fd = open(arg, O_RDONLY);
-	if (fd == -1)
+	i = 0;
+	while (i < 4)
 	{
-		close(fd);
-		return(1);
+		if (dbt->img)
+			mlx_destroy_image(mlx, dbt[i].img);
+		i++;
 	}
-	else
-	{
-		close(fd);
-		return(0);
-	}
+	return ;
 }
