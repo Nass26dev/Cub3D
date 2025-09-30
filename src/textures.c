@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/30 11:05:08 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:11:49 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,11 @@ int	get_texture(t_data *data, size_t i, char *path)
 				&data->dbt[i].width, &data->dbt[i].height);
 		free(path);
 		if (!data->dbt[i].img)
-			return (0);
+			return (1);
 		data->dbt[i].addr = mlx_get_data_addr(data->dbt[i].img, &data->dbt->bpp,
 				&data->dbt->line_len, &data->dbt->endian);
 		if (!data->dbt[i].addr)
-			return (0);
+			return (1);
 		i++;
 	}
 	return (0);
