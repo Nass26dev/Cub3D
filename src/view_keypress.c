@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view_keypress.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:03:55 by nass              #+#    #+#             */
-/*   Updated: 2025/09/12 15:02:52 by nass             ###   ########.fr       */
+/*   Updated: 2025/09/30 18:10:47 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,5 @@ bool	manage_la(t_data *data)
 	data->plane_x = data->plane_x * cos(ROT_SPEED) - data->plane_y
 		* sin(ROT_SPEED);
 	data->plane_y = old_plane_x * sin(ROT_SPEED) + data->plane_y;
-	return (true);
-}
-
-bool	manage_da(t_data *data)
-{
-	data->view_offset -= 50;
-	if (data->view_offset < -200)
-		data->view_offset = -200;
-	return (true);
-}
-
-bool	manage_ua(t_data *data)
-{
-	data->view_offset += 50;
-	if (data->view_offset > 200)
-		data->view_offset = 200;
 	return (true);
 }

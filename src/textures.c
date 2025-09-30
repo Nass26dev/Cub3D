@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/30 16:11:49 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:49:00 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,14 @@ static int	get_size_text_file(const char *path, int count)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		else
-		{
-			i++;
-			if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-				count++;
-			if (count == 2)
-				break ;
+		i++;
+		if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+			count++;
+		if (count == 2)
+			break ;
+		if (line)
 			free(line);
-		}
 	}
-	if (line)
-		free(line);
 	close(fd);
 	return (i + 8);
 }
@@ -56,15 +52,12 @@ char	**fetch_textures_file(const char *path, int count, int i)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		else
-		{
-			textures_file[i] = line;
-			i++;
-			if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-				count++;
-			if (count == 2)
-				break ;
-		}
+		textures_file[i] = line;
+		i++;
+		if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+			count++;
+		if (count == 2)
+			break ;
 	}
 	textures_file[i] = NULL;
 	return (textures_file);
@@ -96,13 +89,13 @@ static char	*wich_path(t_data *data, size_t i)
 
 	path = NULL;
 	if (i == 0)
-		path = fetch_texture_path(data, "NO");
-	if (i == 1)
-		path = fetch_texture_path(data, "EA");
-	if (i == 2)
 		path = fetch_texture_path(data, "SO");
-	if (i == 3)
+	if (i == 1)
 		path = fetch_texture_path(data, "WE");
+	if (i == 2)
+		path = fetch_texture_path(data, "NO");
+	if (i == 3)
+		path = fetch_texture_path(data, "EA");
 	if (!path)
 		return (NULL);
 	path[ft_strlen(path) - 1] = 0;

@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/30 10:58:01 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:28:53 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,18 @@ int check_access(char *path, t_data *data, int index)
 	data->text_index = index;
 	close(fd);
 	return (0);
+}
+
+int check_fd(char *path, char **text_file, int i)
+{
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+	{
+		if (i == 1)
+			free(text_file);
+		return (-1);
+	}
+	return (fd);
 }

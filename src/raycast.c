@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/18 13:33:32 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:10:39 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ void	raycast(t_data *data)
 		x++;
 	}
 }
-
 void	render(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
 			&data->endian);
-	raycast(data);
+	data->bpp /= 8;
 	print_c_f(data, 0, 0);
+	raycast(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
 	print_minimap(data);
 }

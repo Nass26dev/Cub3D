@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/30 16:46:55 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:10:03 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ int	key_hook(int keycode, void *param)
 		moved = manage_ra(data);
 	else if (keycode == LEFT_ARROW_PRESS)
 		moved = manage_la(data);
-	else if (keycode == DOWN_ARROW_PRESS)
-		moved = manage_da(data);
-	else if (keycode == UP_ARROW_PRESS)
-		moved = manage_ua(data);
 	check_moved(moved, data);
 	return (0);
 }

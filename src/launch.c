@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:52:36 by nass              #+#    #+#             */
-/*   Updated: 2025/09/30 17:02:53 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:09:58 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,5 @@ void	init_mlx(t_data *data)
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->width, data->height);
 	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
 			&data->endian);
+	data->bpp /= 8;
 }
