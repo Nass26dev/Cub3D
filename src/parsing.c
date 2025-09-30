@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nass <nass@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:04:11 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/12 13:41:57 by nass             ###   ########.fr       */
+/*   Updated: 2025/09/30 16:43:32 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ static int	parse_map_vertical(char **map, size_t i, size_t j)
 }
 
 int	parse_error(t_data *data)
-		// add custom msg avec char *error dans la structure
 {
 	if (is_ceiling_color(data->textures) || is_floor_color(data->textures)
 		|| is_text_paths(data->textures) || is_map(data->map)

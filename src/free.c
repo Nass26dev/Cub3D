@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/30 11:07:04 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 16:46:39 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	free_map(char **map)
 int	error_parse_cleanup(t_data *data)
 {
 	free_map(data->map);
+	data->map = NULL;
 	free_map(data->textures);
+	data->textures = NULL;
 	free(data->error_msg);
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 void	free_img(t_data *data, void *mlx)
