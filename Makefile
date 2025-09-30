@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/29 11:15:05 by nyousfi           #+#    #+#              #
-#    Updated: 2025/09/16 12:11:15 by tmarion          ###   ########.fr        #
+#    Updated: 2025/09/30 17:09:16 by tmarion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ OBJS = $(SRCS:src/%.c=$(OBJDIR)/%.o)
 DEPS = $(SRCS:src/%.c=$(DEPDIR)/%.d)
 
 HEADER = include/cub3D.h \
-		  minilibx/mlx.h \
-		  include/get_next_line.h
+			minilibx/mlx.h \
+			include/get_next_line.h
 
 COMPILED = 0
 MESSAGE_COLOR_GREEN = \033[1;32m
@@ -62,9 +62,7 @@ all: $(NAME)
 		echo "$(MESSAGE_COLOR_BLUE)everything is already up to date 😉$(MESSAGE_RESET)"; \
 	fi
 	
-$(NAME): $(OBJS)
-	@make -j -C $(LIBFT)
-	@make -j -C $(MLX)
+$(NAME): $(OBJS) force
 	@$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIBDIR) -o $(NAME)
 	@$(eval COMPILED := 1)
 
@@ -77,6 +75,10 @@ $(OBJDIR)/%.o: src/%.c $(HEADER)
 	@echo "$(MESSAGE_COLOR_GREEN)Compilation of $@ done! ✅$(MESSAGE_RESET)"
 
 -include $(DEPS)
+
+force:
+	@make -j -C $(LIBFT)
+	@make -j -C $(MLX)
 
 clean:
 	@if [ -d $(MAKEDIR) ] || [ -f $(NAME) ]; then \
