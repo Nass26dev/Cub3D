@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/30 16:46:39 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:03:25 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ void	free_map(char **map)
 	int	i;
 
 	i = 0;
-	if (!map || !(*map))
+	if (!map)
 		return ;
+	if (!*map)
+	{
+		free(map);
+		return ;
+	}
 	while (map[i])
 	{
 		free(map[i]);

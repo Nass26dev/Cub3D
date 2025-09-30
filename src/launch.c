@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:52:36 by nass              #+#    #+#             */
-/*   Updated: 2025/09/16 13:20:17 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 17:02:53 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static int is_cub(char **arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[1][i] != '.')
+		i++;
+	if (ft_strncmp(arg[1] + i, ".cub", 4) == 0 && ft_strlen(arg[1] + i) == 4)
+		return (0);
+	else
+		return (1);
+}
 
 bool	check_args(t_data *data, char **argv)
 {
@@ -18,12 +31,13 @@ bool	check_args(t_data *data, char **argv)
 	if (!data->textures)
 		return (1);
 	if (is_ceiling_color(data->textures) || is_floor_color(data->textures)
-		|| is_text_paths(data->textures))
+		|| is_text_paths(data->textures) || is_cub(argv))
 	{
 		data->error_msg = ft_strdup("Missing argument(s)");
 		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(data->error_msg, 2);
-		free(data->textures);
+		free_map(data->textures);
+		free(data->error_msg);
 		return (1);
 	}
 	return (0);
