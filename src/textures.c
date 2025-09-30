@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:27:45 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/16 13:18:57 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:05:08 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,15 @@ static char	*wich_path(t_data *data, size_t i)
 {
 	char	*path;
 
+	path = NULL;
 	if (i == 0)
 		path = fetch_texture_path(data, "NO");
 	if (i == 1)
-		path = fetch_texture_path(data, "SO");
-	if (i == 2)
-		path = fetch_texture_path(data, "WE");
-	if (i == 3)
 		path = fetch_texture_path(data, "EA");
+	if (i == 2)
+		path = fetch_texture_path(data, "SO");
+	if (i == 3)
+		path = fetch_texture_path(data, "WE");
 	if (!path)
 		return (NULL);
 	path[ft_strlen(path) - 1] = 0;
@@ -110,8 +111,6 @@ static char	*wich_path(t_data *data, size_t i)
 
 int	get_texture(t_data *data, size_t i, char *path)
 {
-	int		fd;
-
 	data->dbt = malloc(sizeof(t_dbt) * 4);
 	if (!data->dbt)
 		return (1);
@@ -119,10 +118,8 @@ int	get_texture(t_data *data, size_t i, char *path)
 	while (i < 4)
 	{
 		path = wich_path(data, i);
-		fd = open(path, O_RDONLY);
-		if (fd == -1)
+		if (check_access(path, data, i))
 			return (1);
-		close(fd);
 		data->dbt[i].img = mlx_xpm_file_to_image(data->mlx_ptr, path,
 				&data->dbt[i].width, &data->dbt[i].height);
 		free(path);

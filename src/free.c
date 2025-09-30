@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 13:14:56 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/16 11:09:08 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 11:07:04 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_map(char **map)
 	int	i;
 
 	i = 0;
-	if (!map)
+	if (!map || !(*map))
 		return ;
 	while (map[i])
 	{
@@ -35,15 +35,17 @@ int	error_parse_cleanup(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-void	free_img(t_dbt *dbt, void *mlx)
+void	free_img(t_data *data, void *mlx)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	while (i < 4)
+	if (data->text_bool == 0)
+		data->text_index++;
+	while (i < data->text_index)
 	{
-		if (dbt->img)
-			mlx_destroy_image(mlx, dbt[i].img);
+		if (data->dbt[i].img)
+			mlx_destroy_image(mlx, data->dbt[i].img);
 		i++;
 	}
 	return ;

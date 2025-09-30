@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/18 13:26:41 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 10:57:38 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,8 @@ typedef struct s_data
 	int				c_color;
 	int				f_color;
 	char			*error_msg;
+	int				text_index;
+	bool			text_bool;
 	struct s_point	point;
 	struct s_dbt	*dbt;
 }		t_data;
@@ -142,6 +144,7 @@ typedef struct s_data
 char	*ft_alloc_copy(const char *src);
 void	print_tab(char **tab);
 int		get_size_tab(char **map);
+int		check_access(char *path, t_data *data, int index);
 // get_next_line.c
 char	*get_next_line(int fd);
 // raycast.c
@@ -174,7 +177,7 @@ int		is_val_char(char c);
 //free.c
 void	free_map(char **map);
 int		error_parse_cleanup(t_data *data);
-void	free_img(t_dbt *dbt, void *mlx);
+void	free_img(t_data *data, void *mlx);
 //launch.c
 bool	check_args(t_data *data, char **argv);
 bool	manage_map(t_data *data, char **argv);
