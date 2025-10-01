@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/18 13:25:16 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:13:43 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init_render(t_render *rnd, t_data *data, t_dda *dda)
 	ft_memset(rnd, 0, sizeof(rnd));
 	rnd->adr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
 			&data->endian);
+	data->bpp /= 8;
 	rnd->line_height = (int)(data->height / dda->wall_dist);
 	rnd->draw_start = -rnd->line_height / 2 + data->height / 2
 		+ data->view_offset;
@@ -82,8 +83,10 @@ void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 			draw_false_dda(&rnd, data, rc);
 		else
 			draw_true_dda(&rnd, data, rc);
-		rnd.dst = rnd.adr + (y * data->ll + x * (data->bpp / 8));
+		rnd.dst = rnd.adr + (y * data->ll + x * data->bpp);
 		*(unsigned int *)rnd.dst = rnd.color;
 		y++;
 	}
+	rnd.dst = rnd.adr + (y * data->ll + x * data->bpp);
+	*(unsigned int *)rnd.dst = rnd.color;
 }

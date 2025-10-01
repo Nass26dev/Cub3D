@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:04 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/16 13:14:37 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 18:10:03 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	close_window(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	free_img(data->dbt, data->mlx_ptr);
+	free_img(data, data->mlx_ptr);
 	free_map(data->map);
 	free_map(data->textures);
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
@@ -55,10 +55,6 @@ int	key_hook(int keycode, void *param)
 		moved = manage_ra(data);
 	else if (keycode == LEFT_ARROW_PRESS)
 		moved = manage_la(data);
-	else if (keycode == DOWN_ARROW_PRESS)
-		moved = manage_da(data);
-	else if (keycode == UP_ARROW_PRESS)
-		moved = manage_ua(data);
 	check_moved(moved, data);
 	return (0);
 }
@@ -67,6 +63,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	ft_memset(&data, 0, sizeof(t_data));
 	if (argc != 2)
 	{
 		write(2, "Usage: ./cub3D <map_file>\n", 26);

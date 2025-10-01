@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_floor_ceiling.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 12:06:51 by tmarion           #+#    #+#             */
-/*   Updated: 2025/09/16 12:12:23 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:13:56 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	draw_ceiling(t_data *data, int c_color, int x, int y)
 	color_check = 0x000000;
 	while (x < data->width)
 	{
-		while (color_check == 0x000000 && y < data->height)
+		while (y < 360)
 		{
-			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
+			pix = data->addr + (y * data->ll + x * data->bpp);
 			color_check = *(unsigned int *)pix;
 			if (color_check == 0x000000)
 				*(unsigned int *)pix = c_color;
@@ -68,9 +68,9 @@ static void	draw_floor(t_data *data, int f_color, int x, int y)
 	color_check = 0x000000;
 	while (x < data->width)
 	{
-		while (color_check == 0x000000 && y > 0)
+		while (y > 360)
 		{
-			pix = data->addr + (y * data->ll + x * (data->bpp / 8));
+			pix = data->addr + (y * data->ll + x * data->bpp);
 			color_check = *(unsigned int *)pix;
 			if (color_check == 0x000000)
 				*(unsigned int *)pix = f_color;

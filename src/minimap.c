@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 15:10:24 by nass              #+#    #+#             */
-/*   Updated: 2025/09/16 12:41:01 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/09/30 19:09:38 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	draw_pixel(t_data *data, int x, int y, unsigned int color)
 
 	if (x >= 0 && x < data->width && y >= 0 && y < data->height)
 	{
-		dst = data->addr + (y * data->ll + x * (data->bpp / 8));
+		dst = data->addr + (y * data->ll + x * data->bpp);
 		*(unsigned int *)dst = color;
 	}
 }
