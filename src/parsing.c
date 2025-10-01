@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 16:04:11 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/10/01 18:37:43 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/01 18:41:09 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,37 +86,37 @@ static int	parse_color_args(char **text, int i, int j)
 // 	return (0);
 // }
 
-// static int	parse_map_vertical(char **map, size_t i, size_t j)
-// {
-// 	while (map[i])
-// 	{
-// 		while (map[i][j] == 32)
-// 			i++;
-// 		if (map[i][j] == 10)
-// 			break ;
-// 		if (map[i][j] != '1')
-// 			return (1);
-// 		i = 0;
-// 		j++;
-// 	}
-// 	j = 0;
-// 	i = get_size_tab(map);
-// 	while (map[i])
-// 	{
-// 		while (map[i][j] == 32)
-// 			i--;
-// 		if (map[i][j] == 0)
-// 			return (0);
-// 		if (map[i][j] != '1')
-// 		{
-// 			printf("index: %zu, line: %s, char[%zu]: %d\n", i, map[i], j, map[i][j]);
-// 			return (1);
-// 		}
-// 		i = get_size_tab(map);
-// 		j++;
-// 	}
-// 	return (0);
-// }
+static int	parse_map_vertical(char **map, size_t i, size_t j)
+{
+	while (map[i])
+	{
+		while (map[i][j] == 32)
+			i++;
+		if (map[i][j] == 10)
+			break ;
+		if (map[i][j] != '1')
+			return (1);
+		i = 0;
+		j++;
+	}
+	j = 0;
+	i = get_size_tab(map);
+	while (map[i])
+	{
+		while (map[i][j] == 32)
+			i--;
+		if (map[i][j] == 0)
+			return (0);
+		if (map[i][j] != '1')
+		{
+			// printf("index: %zu, line: %s, char[%zu]: %d\n", i, map[i], j, map[i][j]);
+			return (1);
+		}
+		i = get_size_tab(map);
+		j++;
+	}
+	return (0);
+}
 
 int	parse_error(t_data *data)
 {
@@ -132,7 +132,8 @@ int	parse_error(t_data *data)
 		data->error_msg = ft_strdup("Wrong color's arguments");
 		return (1);
 	}
-	if (is_valid_player(data->map) || is_valid_map(data->map)) //parse_map_horizontal(data->map) || parse_map_vertical(data->map, 0, 0)
+	if (is_valid_player(data->map) || parse_map_vertical(data->map, 0, 0)
+		|| is_valid_map(data->map)) //parse_map_horizontal(data->map) || parse_map_vertical(data->map, 0, 0)
 	{
 		data->error_msg = ft_strdup("Map is not valid");
 		return (1);
