@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/30 18:29:12 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/01 09:44:15 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char	*ft_alloc_copy(const char *src);
 void	print_tab(char **tab);
 int		get_size_tab(char **map);
 int		check_access(char *path, t_data *data, int index);
-int check_fd(char *path, char **text_file, int i);
+int		check_fd(char *path, char **text_file, int i);
 // get_next_line.c
 char	*get_next_line(int fd);
 // raycast.c
@@ -196,6 +196,5 @@ bool	manage_da(t_data *data);
 bool	manage_ua(t_data *data);
 //map_utils.c
 bool	is_ok(char *line, int count, t_point point);
-
 
 #endif

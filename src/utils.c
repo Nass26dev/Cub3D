@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 13:17:43 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/09/30 18:28:53 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/01 09:47:45 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	get_size_tab(char **map)
 	return (i - 1);
 }
 
-int check_access(char *path, t_data *data, int index)
+int	check_access(char *path, t_data *data, int index)
 {
 	int	fd;
 
@@ -71,9 +71,9 @@ int check_access(char *path, t_data *data, int index)
 	return (0);
 }
 
-int check_fd(char *path, char **text_file, int i)
+int	check_fd(char *path, char **text_file, int i)
 {
-	int fd;
+	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)

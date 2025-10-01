@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarion <tmarion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 14:52:36 by nass              #+#    #+#             */
-/*   Updated: 2025/09/30 19:09:58 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/01 09:47:57 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int is_cub(char **arg)
+static int	is_cub(char **arg)
 {
 	int	i;
 
