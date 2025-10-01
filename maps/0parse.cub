@@ -3,7 +3,7 @@ SO ./textures/south_wall.xpm
 WE ./textures/west_wall.xpm
 EA ./textures/east_wall.xpm
 
-F 181,101,29 //TODO
+F 181,101,29
 C 50,100,150
 
       1
