@@ -1,7 +1,7 @@
-NO ./textures/north_wall.xpm
-SO ./textures/south_wall.xpm
-WE ./textures/west_wall.xpm
-EA ./textures/east_wall.xpm
+NO ./debug_textures/north_wall.xpm
+SO ./debug_textures/south_wall.xpm
+WE ./debug_textures/west_wall.xpm
+EA ./debug_textures/east_wall.xpm
 
 F 181,101,29
 C 50,100,150
