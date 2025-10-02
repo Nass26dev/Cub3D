@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:18:02 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/10/01 09:44:15 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/02 15:40:28 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "../minilibx/mlx.h"
 # include "../Libft/libft.h"
 
-# define MOVE_SPEED 0.5
+# define MOVE_SPEED 1
 # define ROT_SPEED 0.1
 # define MINIMAP_SCALE 10
 # define W_PRESS 119
