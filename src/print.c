@@ -6,13 +6,13 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/10/03 11:50:33 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/03 12:03:39 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	remap_val(int value, t_render *rnd, int start2, int stop2)
+static int	remap_valy(int value, t_render *rnd, int start2, int stop2)
 {
 	int	val_remap;
 
@@ -63,6 +63,21 @@ static void	draw_true_dda(t_render *rnd, t_data *data, t_raycast *rc)
 			+ rnd->texypos * data->dbt[0].width];
 }
 
+static int remap_valx(t_render *rnd, t_data	*data, t_raycast *rc, t_dda *dda)
+{
+	if ((dda->side == 0 && rc->ray_dir_x > 0)
+		|| (dda->side == 1 && rc->ray_dir_y < 0))
+	{
+		rnd->texxpos = data->dbt[0].width - rnd->texxpos - 1;
+		return (rnd->texxpos);
+	}
+	else
+	{
+		rnd->texxpos = (int)(rnd->wallx * (double)data->dbt[0].width);
+		return (rnd->texxpos);
+	}
+}
+
 void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 {
 	t_render	rnd;
@@ -77,12 +92,8 @@ void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 		else
 			rnd.wallx = data->player_x + dda->wall_dist * rc->ray_dir_x;
 		rnd.wallx = rnd.wallx - floor(rnd.wallx);
-		rnd.texxpos = (int)(rnd.wallx * (double)data->dbt[0].width);
-		//
-		if ((dda->side == 0 && rc->ray_dir_x > 0) || (dda->side == 1 && rc->ray_dir_y < 0))
-			rnd.texxpos = data->dbt[0].width - rnd.texxpos - 1;
-		//
-		rnd.texypos = remap_val(y, &rnd, 0, data->dbt[0].height);
+		rnd.texxpos = remap_valx(&rnd, data, rc, dda);
+		rnd.texypos = remap_valy(y, &rnd, 0, data->dbt[0].height);
 		if (dda->side == 0)
 			draw_false_dda(&rnd, data, rc);
 		else
