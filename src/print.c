@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 14:59:53 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/10/02 15:55:22 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/03 10:40:38 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,15 @@ void	print_line(t_data *data, t_dda *dda, t_raycast *rc, int x)
 	while (y < rnd.draw_end)
 	{
 		if (dda->side == 0)
-			rnd.wallx = rc->map_y + dda->wall_dist * rc->ray_dir_y;
+			rnd.wallx = data->player_y + dda->wall_dist * rc->ray_dir_y;
 		else
-			rnd.wallx = rc->map_x + dda->wall_dist * rc->ray_dir_x;
+			rnd.wallx = data->player_y + dda->wall_dist * rc->ray_dir_x;
 		rnd.wallx = rnd.wallx - floor(rnd.wallx);
 		rnd.texxpos = (int)(rnd.wallx * (double)data->dbt[0].width);
+		//
+		if ((dda->side == 0 && rc->ray_dir_x > 0) || (dda->side == 1 && rc->ray_dir_y < 0))
+			rnd.texxpos = data->dbt[0].width - rnd.texxpos - 1;
+		//
 		rnd.texypos = remap_val(y, &rnd, 0, data->dbt[0].height);
 		if (dda->side == 0)
 			draw_false_dda(&rnd, data, rc);
