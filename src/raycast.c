@@ -6,7 +6,7 @@
 /*   By: tmarion <tmarion@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 15:02:35 by nyousfi           #+#    #+#             */
-/*   Updated: 2025/10/01 09:47:14 by tmarion          ###   ########.fr       */
+/*   Updated: 2025/10/03 11:43:56 by tmarion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,36 +93,6 @@ void	raycast(t_data *data)
 	}
 }
 
-// #include <sys/time.h>
-// static double	gettime_in_sec(void)
-// {
-//     struct timeval tv;
-//     gettimeofday(&tv, NULL);
-//     return tv.tv_sec + tv.tv_usec / 1000000.0;
-// }
-
-// static void get_fps(void)
-// {
-//     static int		frame_count = 0;
-//     static double	last_time = 0.0;
-// 	double			current_time;
-// 	int 			fps;
-
-//     if (last_time == 0.0)
-// 	{
-//         last_time = gettime_in_sec();
-// 	}
-// 	frame_count++;
-// 	current_time = gettime_in_sec();
-// 	if (current_time - last_time >= 1.0)
-//     {
-//         fps = frame_count;
-//         frame_count = 0;
-//         last_time = current_time;
-//         printf("FPS: %d\n", fps);
-//     }
-// }
-
 void	render(t_data *data)
 {
 	mlx_destroy_image(data->mlx_ptr, data->img_ptr);
@@ -130,7 +100,6 @@ void	render(t_data *data)
 	data->addr = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->ll,
 			&data->endian);
 	data->bpp /= 8;
-	// get_fps();
 	print_c_f(data, 0, 0);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
